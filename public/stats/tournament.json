@@ -1,0 +1,664 @@
+{
+  "roundNumber": 1,
+  "seasonNumber": 2026,
+  "generatedAt": "2026-03-28T23:02:18.314Z",
+  "overview": {
+    "totalGames": 37,
+    "totalMoves": 2965,
+    "averageGameLength": 40.067567567567565,
+    "longestGame": {
+      "moves": 137,
+      "white": "Janosch",
+      "black": "Opp",
+      "result": "1/2-1/2",
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
+    },
+    "shortestGame": {
+      "moves": 19,
+      "white": "walo",
+      "black": "mateusz",
+      "result": "1-0",
+      "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ"
+    }
+  },
+  "gamePhases": {
+    "averageOpening": 8.986486486486486,
+    "averageMiddlegame": 16.62162162162162,
+    "averageEndgame": 14.45945945945946,
+    "longestWaitTillCapture": {
+      "moves": 14,
+      "white": "Janosch",
+      "black": "Opp",
+      "game": "Janosch vs Opp",
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
+    },
+    "longestMiddlegame": {
+      "moves": 31,
+      "white": "Unknown",
+      "black": "Unknown",
+      "game": "undefined vs undefined",
+      "gameId": "https://lichess.org/study/lGf88qOA/3CXTUWaS"
+    },
+    "longestEndgame": {
+      "moves": 103,
+      "white": "Janosch",
+      "black": "Opp",
+      "game": "Janosch vs Opp",
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
+    }
+  },
+  "results": {
+    "whiteWins": 17,
+    "blackWins": 9,
+    "draws": 10,
+    "whiteWinPercentage": 45.94594594594595,
+    "blackWinPercentage": 24.324324324324326,
+    "drawPercentage": 27.027027027027028
+  },
+  "openings": {
+    "firstMoves": {
+      "d4": {
+        "count": 13,
+        "percentage": 35.13513513513514,
+        "winRate": 38.46153846153847
+      },
+      "e4": {
+        "count": 15,
+        "percentage": 40.54054054054054,
+        "winRate": 60
+      },
+      "Nf3": {
+        "count": 6,
+        "percentage": 16.216216216216218,
+        "winRate": 33.33333333333333
+      },
+      "c4": {
+        "count": 1,
+        "percentage": 2.7027027027027026,
+        "winRate": 0
+      },
+      "f4": {
+        "count": 1,
+        "percentage": 2.7027027027027026,
+        "winRate": 0
+      },
+      "b3": {
+        "count": 1,
+        "percentage": 2.7027027027027026,
+        "winRate": 100
+      }
+    },
+    "popularSequences": [
+      {
+        "moves": "e4 Nf6 Nc3 d5 e5 Nfd7",
+        "count": 2,
+        "eco": "B02",
+        "name": "Alekhine Defense: Scandinavian Variation"
+      },
+      {
+        "moves": "e4 c6 d4 d5 e5 Bf5",
+        "count": 2,
+        "eco": "B12",
+        "name": "Caro-Kann Defense: Advance Variation"
+      },
+      {
+        "moves": "e4 c5 Nf3 Nc6 d4 cxd4",
+        "count": 2,
+        "eco": "B32",
+        "name": "Sicilian Defense: Open"
+      },
+      {
+        "moves": "e4 e6 d4 d5 Nd2 dxe4",
+        "count": 2,
+        "eco": "C03",
+        "name": "French Defense: Tarrasch Variation"
+      },
+      {
+        "moves": "d4 Nf6 c4 e6 Nf3 b6",
+        "count": 2,
+        "eco": "E12",
+        "name": "Queen's Indian Defense"
+      },
+      {
+        "moves": "d4 Nf6 c4 e6 Nc3 Bb4",
+        "count": 2,
+        "eco": "E20",
+        "name": "Nimzo-Indian Defense"
+      },
+      {
+        "moves": "b3 Nf6 Bb2 d5 Nf3 c5",
+        "count": 1,
+        "eco": "A01",
+        "name": "Nimzo-Larsen Attack: Indian Variation"
+      },
+      {
+        "moves": "f4 Nh6 Nf3 d5 e3 g6",
+        "count": 1,
+        "eco": "A02",
+        "name": "Bird Opening: Horsefly Defense"
+      },
+      {
+        "moves": "Nf3 Nf6 g3 d5 Bg2 e6",
+        "count": 1,
+        "eco": "A05",
+        "name": "King's Indian Attack"
+      },
+      {
+        "moves": "Nf3 Nf6 d4 d5 e3 Bf5",
+        "count": 1,
+        "eco": "A05",
+        "name": "Zukertort Opening"
+      },
+      {
+        "moves": "Nf3 Nf6 d4 d5 c4 c6",
+        "count": 1,
+        "eco": "A05",
+        "name": "Zukertort Opening"
+      },
+      {
+        "moves": "Nf3 Nf6 c4 e6 e3 b6",
+        "count": 1,
+        "eco": "A05",
+        "name": "Zukertort Opening"
+      },
+      {
+        "moves": "Nf3 d5 b3 Nf6 Bb2 Bf5",
+        "count": 1,
+        "eco": "A06",
+        "name": "Nimzo-Larsen Attack: Classical Variation"
+      },
+      {
+        "moves": "Nf3 d5 d4 Nf6 c4 e6",
+        "count": 1,
+        "eco": "A06",
+        "name": "Zukertort Opening"
+      },
+      {
+        "moves": "c4 e6 Nc3 d5 cxd5 exd5",
+        "count": 1,
+        "eco": "A13",
+        "name": "English Opening: Agincourt Defense"
+      },
+      {
+        "moves": "d4 d6 Nf3 Nf6 c4 Nbd7",
+        "count": 1,
+        "eco": "A41",
+        "name": "Queen's Pawn Game"
+      },
+      {
+        "moves": "d4 Nf6 Nc3 d5 Bf4 c6",
+        "count": 1,
+        "eco": "A45",
+        "name": "Queen's Pawn Game: Chigorin Variation"
+      },
+      {
+        "moves": "d4 Nf6 Bg5 d5 e3 e6",
+        "count": 1,
+        "eco": "A45",
+        "name": "Trompowsky Attack"
+      },
+      {
+        "moves": "d4 Nf6 Nf3 g6 e3 Bg7",
+        "count": 1,
+        "eco": "A48",
+        "name": "East Indian Defense"
+      },
+      {
+        "moves": "d4 Nf6 Nf3 g6 g3 Bg7",
+        "count": 1,
+        "eco": "A49",
+        "name": "Indian Defense: Przepiorka Variation"
+      },
+      {
+        "moves": "e4 d5 exd5 Qxd5 Nc3 Qa5",
+        "count": 1,
+        "eco": "B01",
+        "name": "Scandinavian Defense: Main Line"
+      },
+      {
+        "moves": "e4 c6 Nf3 d5 Nc3 dxe4",
+        "count": 1,
+        "eco": "B10",
+        "name": "Caro-Kann Defense"
+      },
+      {
+        "moves": "e4 c6 Nf3 d5 Nc3 Bg4",
+        "count": 1,
+        "eco": "B10",
+        "name": "Caro-Kann Defense"
+      },
+      {
+        "moves": "e4 c6 Nc3 d5 Nf3 Bg4",
+        "count": 1,
+        "eco": "B11",
+        "name": "Caro-Kann Defense: Two Knights Attack, Mindeno Variation"
+      },
+      {
+        "moves": "e4 c6 d4 d5 f3 dxe4",
+        "count": 1,
+        "eco": "B12",
+        "name": "Caro-Kann Defense: Maróczy Variation"
+      },
+      {
+        "moves": "e4 c5 Nc3 Nc6 f4 g6",
+        "count": 1,
+        "eco": "B23",
+        "name": "Sicilian Defense: Grand Prix Attack"
+      },
+      {
+        "moves": "e4 e5 Nf3 Nf6 Nxe5 d6",
+        "count": 1,
+        "eco": "C42",
+        "name": "Petrov's Defense"
+      },
+      {
+        "moves": "d4 d5 Nf3 Bf5 c4 e6",
+        "count": 1,
+        "eco": "D02",
+        "name": "Queen's Pawn Game: Zukertort Variation"
+      },
+      {
+        "moves": "d4 d5 Nf3 Nf6 e3 Bf5",
+        "count": 1,
+        "eco": "D04",
+        "name": "Queen's Pawn Game: Colle System, Anti-Colle"
+      },
+      {
+        "moves": "d4 d5 c4 e6 Nc3 Nf6",
+        "count": 1,
+        "eco": "D35",
+        "name": "Queen's Gambit Declined: Normal Defense"
+      },
+      {
+        "moves": "d4 Nf6 c4 g6 g3 Bg7",
+        "count": 1,
+        "eco": "E60",
+        "name": "King's Indian Defense: Fianchetto Variation, Immediate Fianchetto"
+      }
+    ]
+  },
+  "tactics": {
+    "totalCaptures": 645,
+    "enPassantGames": [
+      {
+        "white": "Neo Matrix",
+        "black": "Walo",
+        "count": 1
+      }
+    ],
+    "promotions": 4,
+    "castling": {
+      "kingside": 61,
+      "queenside": 7
+    },
+    "bloodiestGame": {
+      "captures": 30,
+      "gameIndex": 6,
+      "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0",
+      "white": "jaque",
+      "black": "Gaston"
+    },
+    "quietestGame": {
+      "captures": 4,
+      "gameIndex": 36,
+      "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI",
+      "white": "Nyc lawyer",
+      "black": "Sam"
+    },
+    "longestNonCaptureStreak": {
+      "moves": 170,
+      "gameIndex": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "totalUnderpromotions": 1,
+    "underpromotions": [
+      {
+        "gameIndex": 10,
+        "moveNumber": 52,
+        "promotedTo": "r",
+        "color": "b",
+        "san": "a1=R+",
+        "white": "Unknown",
+        "black": "Sam"
+      }
+    ]
+  },
+  "pieces": {
+    "activity": {
+      "pawns": 767,
+      "knights": 487,
+      "bishops": 520,
+      "rooks": 418,
+      "queens": 379,
+      "kings": 394
+    },
+    "captured": {
+      "pawns": 289,
+      "knights": 116,
+      "bishops": 108,
+      "rooks": 83,
+      "queens": 49
+    },
+    "survivalRate": {
+      "rooks": 0.44594594594594594,
+      "queens": 0.3783783783783784,
+      "bishops": 0.2702702702702703,
+      "knights": 0.21621621621621623
+    }
+  },
+  "checkmates": {
+    "byPiece": {
+      "queen": 1,
+      "rook": 0,
+      "bishop": 1,
+      "knight": 0,
+      "pawn": 0
+    },
+    "fastest": {
+      "moves": 19,
+      "gameIndex": 23,
+      "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ",
+      "white": "walo",
+      "black": "mateusz",
+      "winner": "White"
+    }
+  },
+  "boardHeatmap": {
+    "bloodiestSquare": {
+      "square": "e4",
+      "captures": 46,
+      "description": "e4 saw 46 captures"
+    },
+    "mostPopularSquare": {
+      "square": "f6",
+      "visits": 120,
+      "description": "f6 was visited 120 times"
+    },
+    "leastPopularSquare": {
+      "square": "a8",
+      "visits": 7,
+      "description": "a8 was only visited 7 times"
+    },
+    "quietestSquares": [],
+    "top5Bloodiest": [
+      {
+        "square": "e4",
+        "captures": 46
+      },
+      {
+        "square": "d4",
+        "captures": 45
+      },
+      {
+        "square": "e5",
+        "captures": 42
+      },
+      {
+        "square": "d5",
+        "captures": 40
+      },
+      {
+        "square": "f6",
+        "captures": 32
+      }
+    ],
+    "top5Popular": [
+      {
+        "square": "f6",
+        "visits": 120
+      },
+      {
+        "square": "e5",
+        "visits": 116
+      },
+      {
+        "square": "e4",
+        "visits": 115
+      },
+      {
+        "square": "d4",
+        "visits": 113
+      },
+      {
+        "square": "d5",
+        "visits": 105
+      }
+    ]
+  },
+  "awards": {
+    "bloodbath": {
+      "white": "jaque",
+      "black": "Gaston",
+      "captures": 30,
+      "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0"
+    },
+    "pacifist": {
+      "white": "Nyc lawyer",
+      "black": "Sam",
+      "captures": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI"
+    },
+    "speedDemon": {
+      "white": "walo",
+      "black": "mateusz",
+      "moves": 19,
+      "winner": "White",
+      "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ"
+    },
+    "endgameWizard": {
+      "white": "Janosch",
+      "black": "Opp",
+      "endgameMoves": 103,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
+    },
+    "openingSprinter": {
+      "white": "Unknown",
+      "black": "Unknown",
+      "openingMoves": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/P5W1EeyV"
+    }
+  },
+  "funStats": {
+    "fastestQueenTrade": {
+      "moves": 10,
+      "gameIndex": 17,
+      "gameId": "https://lichess.org/study/lGf88qOA/oC2nDLai",
+      "white": "Jaque",
+      "black": "Andresson"
+    },
+    "slowestQueenTrade": {
+      "moves": 43,
+      "gameIndex": 2,
+      "gameId": "https://lichess.org/study/lGf88qOA/0oLFC8My",
+      "white": "Unknown",
+      "black": "Unknown"
+    },
+    "longestCaptureSequence": {
+      "length": 7,
+      "gameIndex": 26,
+      "gameId": "https://lichess.org/study/lGf88qOA/WjWl1Azs",
+      "startMove": 19,
+      "white": "Unknown",
+      "black": "Unknown"
+    },
+    "longestCheckSequence": {
+      "length": 7,
+      "gameIndex": 3,
+      "gameId": "https://lichess.org/study/lGf88qOA/fjCJWRiL",
+      "startMove": 41,
+      "white": "Unknown",
+      "black": "Unknown"
+    },
+    "pawnStorm": {
+      "count": 13,
+      "gameIndex": 20,
+      "gameId": "https://lichess.org/study/lGf88qOA/nYGAvtWw",
+      "white": "Unknown",
+      "black": "Unknown"
+    },
+    "pieceLoyalty": null,
+    "squareTourist": {
+      "squares": 19,
+      "gameIndex": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
+      "piece": "Bishop",
+      "color": "White",
+      "startSquare": "f1",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "castlingRace": {
+      "moves": 4,
+      "gameIndex": 7,
+      "gameId": "https://lichess.org/study/lGf88qOA/8DEd77zG",
+      "winner": "black",
+      "white": "Jonsson, Thormar",
+      "black": "Trueeb, Camill"
+    },
+    "openingHipster": {
+      "gameIndex": 22,
+      "gameId": "https://lichess.org/study/lGf88qOA/21PhrWcY",
+      "eco": "E60",
+      "name": "King's Indian Defense: Fianchetto Variation, Immediate Fianchetto",
+      "moves": "d4 Nf6 c4 g6 g3 Bg7",
+      "obscurityScore": 85,
+      "white": "Unknown",
+      "black": "Unknown"
+    },
+    "dadbodShuffler": {
+      "moves": 50,
+      "gameIndex": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
+      "color": "Black",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "sportyQueen": {
+      "distance": 37,
+      "gameIndex": 2,
+      "gameId": "https://lichess.org/study/lGf88qOA/0oLFC8My",
+      "color": "Black",
+      "white": "Unknown",
+      "black": "Unknown"
+    },
+    "edgeLord": {
+      "moves": 20,
+      "gameIndex": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
+      "color": "White",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "rookLift": {
+      "moveNumber": 13,
+      "gameIndex": 18,
+      "gameId": "https://lichess.org/study/lGf88qOA/4ZpoopoI",
+      "color": "White",
+      "rook": "White's e1 Rook",
+      "square": "e1",
+      "white": "dara murray",
+      "black": "walo"
+    },
+    "centerStage": {
+      "moves": 26,
+      "gameIndex": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
+      "piece": "Black's f6 King",
+      "startSquare": "f6",
+      "color": "Black",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "darkLord": {
+      "captures": 10,
+      "gameIndex": 5,
+      "gameId": "https://lichess.org/study/lGf88qOA/o613iSQK",
+      "color": "Black",
+      "white": "Renato Frederik Roscher",
+      "black": "Fynn von Kistowski"
+    },
+    "sunglasses": {
+      "captures": 9,
+      "gameIndex": 10,
+      "gameId": "https://lichess.org/study/lGf88qOA/uIB3XftP",
+      "color": "Black",
+      "white": "Unknown",
+      "black": "Sam"
+    },
+    "chickenAward": {
+      "retreats": 52,
+      "gameIndex": 4,
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
+      "color": "White",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "slowestCastling": {
+      "moves": 29,
+      "gameIndex": 31,
+      "gameId": null,
+      "color": "black",
+      "white": "Shardul",
+      "black": "Nico Beyer"
+    },
+    "pawnCaptures": {
+      "captures": 6,
+      "gameIndex": 10,
+      "gameId": null,
+      "color": "black",
+      "white": "Unknown",
+      "black": "Sam"
+    },
+    "antiOrthogonal": {
+      "moves": 86,
+      "gameIndex": 4,
+      "gameId": null,
+      "color": "white",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "comfortZone": {
+      "percentage": 64,
+      "pieceType": "bishops",
+      "moves": 81,
+      "totalNonPawnMoves": 126,
+      "gameIndex": 4,
+      "gameId": null,
+      "color": "white",
+      "white": "Janosch",
+      "black": "Opp"
+    },
+    "mostPremoves": {
+      "white": "Trueeb, Camill",
+      "black": "Karlinder, Lovis Neo",
+      "gameIndex": 14,
+      "gameId": "gzXn0Pk8",
+      "player": "Karlinder, Lovis Neo",
+      "color": "black",
+      "count": 1
+    },
+    "longestThink": {
+      "white": "Trueeb, Camill",
+      "black": "Karlinder, Lovis Neo",
+      "gameIndex": 14,
+      "gameId": "gzXn0Pk8",
+      "player": "Karlinder, Lovis Neo",
+      "color": "black",
+      "timeSpent": 1199,
+      "moveNumber": 20,
+      "move": "Bg7"
+    },
+    "bulletSpeed": {
+      "white": "Trueeb, Camill",
+      "black": "Karlinder, Lovis Neo",
+      "gameIndex": 14,
+      "gameId": "gzXn0Pk8",
+      "player": "Trueeb, Camill",
+      "color": "white",
+      "avgTime": 214.83333333333334,
+      "moveCount": 30
+    }
+  }
+}

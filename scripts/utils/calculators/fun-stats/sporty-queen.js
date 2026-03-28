@@ -41,8 +41,7 @@ function calculateSportyQueen(games) {
         gameIndex: idx,
         gameId,
         color: 'White',
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
 
@@ -52,8 +51,7 @@ function calculateSportyQueen(games) {
         gameIndex: idx,
         gameId,
         color: 'Black',
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
   });

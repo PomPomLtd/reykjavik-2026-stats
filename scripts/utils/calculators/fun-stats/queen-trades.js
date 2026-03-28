@@ -49,8 +49,7 @@ function calculateQueenTrades(games) {
           moves: queenTradeMoveNumber,
           gameIndex: idx,
           gameId,
-          white: players.white,
-          black: players.black
+          ...players
         };
       }
 
@@ -61,8 +60,7 @@ function calculateQueenTrades(games) {
           moves: queenTradeMoveNumber,
           gameIndex: idx,
           gameId,
-          white: players.white,
-          black: players.black
+          ...players
         };
       }
     }

@@ -59,8 +59,7 @@ function calculateSquareTourist(games) {
           piece: PIECE_NAMES[piece] || piece,
           color: colorName,
           startSquare: startSquare,
-          white: players.white,
-          black: players.black
+          ...players
         };
       }
     });

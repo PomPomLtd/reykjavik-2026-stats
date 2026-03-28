@@ -78,8 +78,7 @@ function calculateCenterStage(games) {
           piece: `${colorName}'s ${data.startSquare} ${PIECE_NAMES[data.piece]}`,
           startSquare: data.startSquare,
           color: colorName,
-          white: players.white,
-          black: players.black
+          ...players
         };
       }
     });

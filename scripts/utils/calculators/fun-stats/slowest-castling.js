@@ -27,8 +27,7 @@ function calculateSlowestCastling(games) {
             gameIndex: idx,
             gameId: game.gameId || null,
             color: move.color === 'w' ? 'white' : 'black',
-            white: players.white,
-            black: players.black
+            ...players
           };
         }
       }

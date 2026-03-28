@@ -11,6 +11,7 @@ interface CheckmatesSectionProps {
       gameId: string | null
       white: string
       black: string
+      round?: string | null
       winner: string
     } | null
   }
@@ -38,7 +39,7 @@ export function CheckmatesSection({ checkmates }: CheckmatesSectionProps) {
           <AwardCard gameId={checkmates.fastest.gameId} className="bg-red-50 dark:bg-red-900/20">
             <div className="font-semibold text-red-900 dark:text-red-300 mb-1">⚡ Fastest Checkmate</div>
             <div className="text-sm text-gray-700 dark:text-gray-300">
-              <PlayerVs white={checkmates.fastest.white} black={checkmates.fastest.black} />
+              <PlayerVs white={checkmates.fastest.white} black={checkmates.fastest.black} round={checkmates.fastest.round} />
             </div>
             <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">
               {checkmates.fastest.moves} moves • Winner: {checkmates.fastest.winner}

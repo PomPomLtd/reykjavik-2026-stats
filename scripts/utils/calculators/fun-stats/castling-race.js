@@ -50,8 +50,7 @@ function calculateCastlingRace(games) {
           gameIndex: idx,
           gameId,
           winner: firstCastleColor,
-          white: players.white,
-          black: players.black
+          ...players
         };
       }
     }

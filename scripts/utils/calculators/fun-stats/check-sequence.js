@@ -66,8 +66,7 @@ function calculateCheckSequence(games) {
         gameIndex: idx,
         gameId,
         startMove: checkSequenceStart + 1, // Ply number (moveIdx + 1)
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
   });

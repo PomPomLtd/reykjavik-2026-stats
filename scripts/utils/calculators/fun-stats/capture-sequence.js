@@ -46,8 +46,7 @@ function calculateCaptureSequence(games) {
         gameIndex: idx,
         gameId,
         startMove: captureSequenceStart + 1, // Ply number (moveIdx + 1)
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
   });

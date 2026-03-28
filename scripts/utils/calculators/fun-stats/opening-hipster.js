@@ -40,8 +40,7 @@ function calculateOpeningHipster(games) {
             name: opening.name,
             moves: sequence,
             obscurityScore,
-            white: players.white,
-            black: players.black
+            ...players
           };
         }
       }

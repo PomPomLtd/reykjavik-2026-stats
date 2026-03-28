@@ -43,15 +43,13 @@ function calculateOverview(games) {
     averageGameLength: gamesWithMoves.length > 0 ? totalMoves / gamesWithMoves.length / 2 : 0, // Divide by 2 for full moves
     longestGame: {
       moves: toFullMoves(longestGame.moves),
-      white: longestPlayers.white,
-      black: longestPlayers.black,
+      ...longestPlayers,
       result: longestGame.game.result,
       gameId: longestGameId
     },
     shortestGame: {
       moves: toFullMoves(shortestGame.moves),
-      white: shortestPlayers.white,
-      black: shortestPlayers.black,
+      ...shortestPlayers,
       result: shortestGame.game.result,
       gameId: shortestGameId
     }

@@ -44,18 +44,21 @@ function calculateAwards(games) {
     bloodbath: {
       white: tactics.bloodiestGame.white,
       black: tactics.bloodiestGame.black,
+      round: tactics.bloodiestGame.round,
       captures: tactics.bloodiestGame.captures,
       gameId: tactics.bloodiestGame.gameId
     },
     pacifist: {
       white: tactics.quietestGame.white,
       black: tactics.quietestGame.black,
+      round: tactics.quietestGame.round,
       captures: tactics.quietestGame.captures,
       gameId: tactics.quietestGame.gameId
     },
     speedDemon: checkmates.fastest ? {
       white: checkmates.fastest.white,
       black: checkmates.fastest.black,
+      round: checkmates.fastest.round,
       moves: checkmates.fastest.moves,
       winner: checkmates.fastest.winner,
       gameId: checkmates.fastest.gameId

@@ -61,7 +61,8 @@ function getPlayerName(game, color) {
 function getPlayerNames(game) {
   return {
     white: game.headers.White || 'Unknown',
-    black: game.headers.Black || 'Unknown'
+    black: game.headers.Black || 'Unknown',
+    round: game.headers.Round || null
   };
 }
 

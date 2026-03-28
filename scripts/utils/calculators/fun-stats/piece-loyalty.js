@@ -62,8 +62,7 @@ function calculatePieceLoyalty(games) {
           gameId,
           piece: PIECE_NAMES[piece] || piece,
           square: startSquare,
-          white: players.white,
-          black: players.black
+          ...players
         };
       }
     });

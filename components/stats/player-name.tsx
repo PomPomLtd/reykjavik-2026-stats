@@ -43,13 +43,17 @@ export function PlayerName({ name, className = '' }: PlayerNameProps) {
 interface PlayerVsProps {
   white: string
   black: string
+  round?: string | null
   className?: string
 }
 
-export function PlayerVs({ white, black, className = '' }: PlayerVsProps) {
+export function PlayerVs({ white, black, round, className = '' }: PlayerVsProps) {
   return (
     <span className={className}>
       <PlayerName name={white} /> vs <PlayerName name={black} />
+      {round && (
+        <span className="ml-2 text-xs text-gray-400 dark:text-gray-500 font-normal">R{round}</span>
+      )}
     </span>
   )
 }

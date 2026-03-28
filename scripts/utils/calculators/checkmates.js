@@ -47,8 +47,7 @@ function calculateCheckmates(games) {
           moves: mate.moveNumber, // Already in full moves from PGN parser
           gameIndex: idx,
           gameId,
-          white: players.white,
-          black: players.black,
+          ...players,
           winner: mate.color === 'w' ? 'White' : 'Black'
         };
       }

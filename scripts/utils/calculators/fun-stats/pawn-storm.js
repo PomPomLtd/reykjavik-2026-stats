@@ -34,8 +34,7 @@ function calculatePawnStorm(games) {
         count: openingPawnMoves,
         gameIndex: idx,
         gameId,
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
   });

@@ -49,8 +49,7 @@ function calculateAntiOrthogonal(games) {
         gameIndex: idx,
         gameId: game.gameId || null,
         color: 'white',
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
 
@@ -60,8 +59,7 @@ function calculateAntiOrthogonal(games) {
         gameIndex: idx,
         gameId: game.gameId || null,
         color: 'black',
-        white: players.white,
-        black: players.black
+        ...players
       };
     }
   });

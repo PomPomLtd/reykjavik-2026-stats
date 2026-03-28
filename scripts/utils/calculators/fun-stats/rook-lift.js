@@ -42,8 +42,7 @@ function calculateRookLift(games) {
               color: 'White',
               rook: `White's ${startSquare} Rook`,
               square: startSquare,
-              white: players.white,
-              black: players.black
+              ...players
             };
           }
         }
@@ -62,8 +61,7 @@ function calculateRookLift(games) {
               color: 'Black',
               rook: `Black's ${startSquare} Rook`,
               square: startSquare,
-              white: players.white,
-              black: players.black
+              ...players
             };
           }
         }

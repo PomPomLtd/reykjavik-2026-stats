@@ -1,7 +1,7 @@
 {
   "roundNumber": 1,
   "seasonNumber": 2026,
-  "generatedAt": "2026-03-28T23:02:18.314Z",
+  "generatedAt": "2026-03-28T23:33:10.233Z",
   "overview": {
     "totalGames": 37,
     "totalMoves": 2965,
@@ -10,6 +10,7 @@
       "moves": 137,
       "white": "Janosch",
       "black": "Opp",
+      "round": "1",
       "result": "1/2-1/2",
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
     },
@@ -17,6 +18,7 @@
       "moves": 19,
       "white": "walo",
       "black": "mateusz",
+      "round": "4",
       "result": "1-0",
       "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ"
     }
@@ -29,29 +31,32 @@
       "moves": 14,
       "white": "Janosch",
       "black": "Opp",
+      "round": "1",
       "game": "Janosch vs Opp",
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
     },
     "longestMiddlegame": {
       "moves": 31,
-      "white": "Unknown",
-      "black": "Unknown",
-      "game": "undefined vs undefined",
+      "white": "Alex",
+      "black": "Opp",
+      "round": "3",
+      "game": "Alex vs Opp",
       "gameId": "https://lichess.org/study/lGf88qOA/3CXTUWaS"
     },
     "longestEndgame": {
       "moves": 103,
       "white": "Janosch",
       "black": "Opp",
+      "round": "1",
       "game": "Janosch vs Opp",
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
     }
   },
   "results": {
-    "whiteWins": 17,
+    "whiteWins": 18,
     "blackWins": 9,
     "draws": 10,
-    "whiteWinPercentage": 45.94594594594595,
+    "whiteWinPercentage": 48.64864864864865,
     "blackWinPercentage": 24.324324324324326,
     "drawPercentage": 27.027027027027028
   },
@@ -60,7 +65,7 @@
       "d4": {
         "count": 13,
         "percentage": 35.13513513513514,
-        "winRate": 38.46153846153847
+        "winRate": 46.15384615384615
       },
       "e4": {
         "count": 15,
@@ -283,6 +288,7 @@
       {
         "white": "Neo Matrix",
         "black": "Walo",
+        "round": "1",
         "count": 1
       }
     ],
@@ -296,21 +302,24 @@
       "gameIndex": 6,
       "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0",
       "white": "jaque",
-      "black": "Gaston"
+      "black": "Gaston",
+      "round": "1"
     },
     "quietestGame": {
       "captures": 4,
       "gameIndex": 36,
       "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI",
       "white": "Nyc lawyer",
-      "black": "Sam"
+      "black": "Sam",
+      "round": "5"
     },
     "longestNonCaptureStreak": {
       "moves": 170,
       "gameIndex": 4,
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "totalUnderpromotions": 1,
     "underpromotions": [
@@ -320,8 +329,9 @@
         "promotedTo": "r",
         "color": "b",
         "san": "a1=R+",
-        "white": "Unknown",
-        "black": "Sam"
+        "white": "Zawadzki",
+        "black": "Sam",
+        "round": "2"
       }
     ]
   },
@@ -362,6 +372,7 @@
       "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ",
       "white": "walo",
       "black": "mateusz",
+      "round": "4",
       "winner": "White"
     }
   },
@@ -431,18 +442,21 @@
     "bloodbath": {
       "white": "jaque",
       "black": "Gaston",
+      "round": "1",
       "captures": 30,
       "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0"
     },
     "pacifist": {
       "white": "Nyc lawyer",
       "black": "Sam",
+      "round": "5",
       "captures": 4,
       "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI"
     },
     "speedDemon": {
       "white": "walo",
       "black": "mateusz",
+      "round": "4",
       "moves": 19,
       "winner": "White",
       "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ"
@@ -450,12 +464,14 @@
     "endgameWizard": {
       "white": "Janosch",
       "black": "Opp",
+      "round": "1",
       "endgameMoves": 103,
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
     },
     "openingSprinter": {
-      "white": "Unknown",
-      "black": "Unknown",
+      "white": "Pepsi Cola",
+      "black": "Gaston",
+      "round": "5",
       "openingMoves": 4,
       "gameId": "https://lichess.org/study/lGf88qOA/P5W1EeyV"
     }
@@ -466,37 +482,42 @@
       "gameIndex": 17,
       "gameId": "https://lichess.org/study/lGf88qOA/oC2nDLai",
       "white": "Jaque",
-      "black": "Andresson"
+      "black": "Andresson",
+      "round": "3"
     },
     "slowestQueenTrade": {
       "moves": 43,
       "gameIndex": 2,
       "gameId": "https://lichess.org/study/lGf88qOA/0oLFC8My",
-      "white": "Unknown",
-      "black": "Unknown"
+      "white": "Nakul",
+      "black": "Katrin Ost",
+      "round": "1"
     },
     "longestCaptureSequence": {
       "length": 7,
       "gameIndex": 26,
       "gameId": "https://lichess.org/study/lGf88qOA/WjWl1Azs",
       "startMove": 19,
-      "white": "Unknown",
-      "black": "Unknown"
+      "white": "Gast",
+      "black": "Herr Dr.",
+      "round": "4"
     },
     "longestCheckSequence": {
       "length": 7,
       "gameIndex": 3,
       "gameId": "https://lichess.org/study/lGf88qOA/fjCJWRiL",
       "startMove": 41,
-      "white": "Unknown",
-      "black": "Unknown"
+      "white": "Alex",
+      "black": "Opp",
+      "round": "1"
     },
     "pawnStorm": {
       "count": 13,
       "gameIndex": 20,
       "gameId": "https://lichess.org/study/lGf88qOA/nYGAvtWw",
-      "white": "Unknown",
-      "black": "Unknown"
+      "white": "Mitchell Andersson",
+      "black": "Fynn",
+      "round": "3"
     },
     "pieceLoyalty": null,
     "squareTourist": {
@@ -507,7 +528,8 @@
       "color": "White",
       "startSquare": "f1",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "castlingRace": {
       "moves": 4,
@@ -515,7 +537,8 @@
       "gameId": "https://lichess.org/study/lGf88qOA/8DEd77zG",
       "winner": "black",
       "white": "Jonsson, Thormar",
-      "black": "Trueeb, Camill"
+      "black": "Trueeb, Camill",
+      "round": "1"
     },
     "openingHipster": {
       "gameIndex": 22,
@@ -524,8 +547,9 @@
       "name": "King's Indian Defense: Fianchetto Variation, Immediate Fianchetto",
       "moves": "d4 Nf6 c4 g6 g3 Bg7",
       "obscurityScore": 85,
-      "white": "Unknown",
-      "black": "Unknown"
+      "white": "Libanese GM Michael Ferzli",
+      "black": "Camill",
+      "round": "3"
     },
     "dadbodShuffler": {
       "moves": 50,
@@ -533,15 +557,17 @@
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
       "color": "Black",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "sportyQueen": {
       "distance": 37,
       "gameIndex": 2,
       "gameId": "https://lichess.org/study/lGf88qOA/0oLFC8My",
       "color": "Black",
-      "white": "Unknown",
-      "black": "Unknown"
+      "white": "Nakul",
+      "black": "Katrin Ost",
+      "round": "1"
     },
     "edgeLord": {
       "moves": 20,
@@ -549,7 +575,8 @@
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
       "color": "White",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "rookLift": {
       "moveNumber": 13,
@@ -559,7 +586,8 @@
       "rook": "White's e1 Rook",
       "square": "e1",
       "white": "dara murray",
-      "black": "walo"
+      "black": "walo",
+      "round": "3"
     },
     "centerStage": {
       "moves": 26,
@@ -569,7 +597,8 @@
       "startSquare": "f6",
       "color": "Black",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "darkLord": {
       "captures": 10,
@@ -577,15 +606,17 @@
       "gameId": "https://lichess.org/study/lGf88qOA/o613iSQK",
       "color": "Black",
       "white": "Renato Frederik Roscher",
-      "black": "Fynn von Kistowski"
+      "black": "Fynn von Kistowski",
+      "round": "1"
     },
     "sunglasses": {
       "captures": 9,
       "gameIndex": 10,
       "gameId": "https://lichess.org/study/lGf88qOA/uIB3XftP",
       "color": "Black",
-      "white": "Unknown",
-      "black": "Sam"
+      "white": "Zawadzki",
+      "black": "Sam",
+      "round": "2"
     },
     "chickenAward": {
       "retreats": 52,
@@ -593,7 +624,8 @@
       "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
       "color": "White",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "slowestCastling": {
       "moves": 29,
@@ -601,15 +633,17 @@
       "gameId": null,
       "color": "black",
       "white": "Shardul",
-      "black": "Nico Beyer"
+      "black": "Nico Beyer",
+      "round": "5"
     },
     "pawnCaptures": {
       "captures": 6,
       "gameIndex": 10,
       "gameId": null,
       "color": "black",
-      "white": "Unknown",
-      "black": "Sam"
+      "white": "Zawadzki",
+      "black": "Sam",
+      "round": "2"
     },
     "antiOrthogonal": {
       "moves": 86,
@@ -617,7 +651,8 @@
       "gameId": null,
       "color": "white",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "comfortZone": {
       "percentage": 64,
@@ -628,7 +663,8 @@
       "gameId": null,
       "color": "white",
       "white": "Janosch",
-      "black": "Opp"
+      "black": "Opp",
+      "round": "1"
     },
     "mostPremoves": {
       "white": "Trueeb, Camill",

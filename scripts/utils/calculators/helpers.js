@@ -104,12 +104,29 @@ const PIECE_NAMES_LOWERCASE = {
  */
 const CENTER_SQUARES = new Set(['d4', 'd5', 'e4', 'e5']);
 
+/**
+ * Extract a valid gameId from game headers
+ * Prefers ChapterURL (Lichess study links), falls back to GameId or Site
+ * @param {Object} game - Game object with headers
+ * @returns {string|null} Valid game URL or ID, or null
+ */
+function getGameId(game) {
+  if (game.headers?.ChapterURL) return game.headers.ChapterURL;
+  if (game.headers?.GameId) return game.headers.GameId;
+  const site = game.headers?.Site || '';
+  const last = site.split('/').pop();
+  // Only return if it looks like a valid Lichess game ID (8 chars alphanumeric)
+  if (last && /^[a-zA-Z0-9]{8,}$/.test(last)) return last;
+  return null;
+}
+
 module.exports = {
   filterGamesWithMoves,
   calculateDistance,
   isDarkSquare,
   getPlayerName,
   getPlayerNames,
+  getGameId,
   toFullMoves,
   PIECE_NAMES,
   PIECE_NAMES_LOWERCASE,

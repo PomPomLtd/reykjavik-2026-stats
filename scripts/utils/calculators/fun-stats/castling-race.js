@@ -5,7 +5,7 @@
  * Tracks who castled first in the round.
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate castling race winner
@@ -44,7 +44,7 @@ function calculateCastlingRace(games) {
     if (whiteCastled && blackCastled && firstCastleMove !== null) {
       if (firstCastleMove < castlingRace.moves) {
         const players = getPlayerNames(game);
-        const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+        const gameId = getGameId(game);
         castlingRace = {
           moves: firstCastleMove,
           gameIndex: idx,

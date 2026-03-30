@@ -5,7 +5,7 @@
  * Tracks the most active king (most king moves in a game).
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate dadbod shuffler (most king moves)
@@ -32,7 +32,7 @@ function calculateDadbodShuffler(games) {
 
     // Check if this game has the most king moves
     const players = getPlayerNames(game);
-    const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+    const gameId = getGameId(game);
     if (whiteKingMoves > dadbodShuffler.moves) {
       dadbodShuffler = {
         moves: whiteKingMoves,

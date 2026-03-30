@@ -5,7 +5,7 @@
  * Tracks the piece that stayed on its starting square the longest.
  */
 
-const { getPlayerNames, PIECE_NAMES } = require('../helpers');
+const { getPlayerNames, PIECE_NAMES, getGameId } = require('../helpers');
 
 /**
  * Calculate piece loyalty (piece staying on start square longest)
@@ -55,7 +55,7 @@ function calculatePieceLoyalty(games) {
       if (movesOnStart > pieceLoyalty.moves) {
         const [, piece] = pieceKey.split('_');
         const players = getPlayerNames(game);
-        const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+        const gameId = getGameId(game);
         pieceLoyalty = {
           moves: movesOnStart,
           gameIndex: idx,

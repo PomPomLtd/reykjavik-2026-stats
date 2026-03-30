@@ -7,7 +7,7 @@
  */
 
 const { analyzeGamePhases, getPhaseStatistics } = require('../game-phases');
-const { getPlayerNames, toFullMoves, filterGamesWithMoves } = require('./helpers');
+const { getPlayerNames, toFullMoves, filterGamesWithMoves, getGameId } = require('./helpers');
 
 /**
  * Calculate game phase statistics
@@ -33,13 +33,13 @@ function calculateGamePhases(games) {
 
   // Extract gameIds
   const waitGame = gamesWithMoves[longestWaitTillCapture.gameIndex];
-  const waitGameId = waitGame.headers?.GameId || waitGame.headers?.ChapterURL || waitGame.headers?.Site?.split('/').pop() || null;
+  const waitGameId = getGameId(waitGame);
 
   const middleGame = gamesWithMoves[phaseStats.longestMiddlegame.gameIndex];
-  const middleGameId = middleGame.headers?.GameId || middleGame.headers?.ChapterURL || middleGame.headers?.Site?.split('/').pop() || null;
+  const middleGameId = getGameId(middleGame);
 
   const endGame = gamesWithMoves[phaseStats.longestEndgame.gameIndex];
-  const endGameId = endGame.headers?.GameId || endGame.headers?.ChapterURL || endGame.headers?.Site?.split('/').pop() || null;
+  const endGameId = getGameId(endGame);
 
   return {
     averageOpening: phaseStats.averageOpening / 2,

@@ -44,13 +44,20 @@ interface PlayerVsProps {
   white: string
   black: string
   round?: string | null
+  highlight?: string | null
   className?: string
 }
 
-export function PlayerVs({ white, black, round, className = '' }: PlayerVsProps) {
+export function PlayerVs({ white, black, round, highlight, className = '' }: PlayerVsProps) {
   return (
     <span className={className}>
-      <PlayerName name={white} /> vs <PlayerName name={black} />
+      <span className={highlight === 'white' ? 'font-bold' : ''}>
+        <PlayerName name={white} />
+      </span>
+      {' vs '}
+      <span className={highlight === 'black' ? 'font-bold' : ''}>
+        <PlayerName name={black} />
+      </span>
       {round && (
         <span className="ml-2 text-xs text-gray-400 dark:text-gray-500 font-normal">R{round}</span>
       )}

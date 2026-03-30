@@ -6,7 +6,7 @@
  * average game length, longest/shortest games.
  */
 
-const { getPlayerNames, toFullMoves } = require('./helpers');
+const { getPlayerNames, toFullMoves, getGameId } = require('./helpers');
 
 /**
  * Calculate overview statistics
@@ -34,8 +34,8 @@ function calculateOverview(games) {
   const shortestPlayers = getPlayerNames(shortestGame.game);
 
   // Extract gameIds
-  const longestGameId = longestGame.game.headers?.GameId || longestGame.game.headers?.ChapterURL || longestGame.game.headers?.Site?.split('/').pop() || null;
-  const shortestGameId = shortestGame.game.headers?.GameId || shortestGame.game.headers?.ChapterURL || shortestGame.game.headers?.Site?.split('/').pop() || null;
+  const longestGameId = getGameId(longestGame.game);
+  const shortestGameId = getGameId(shortestGame.game);
 
   return {
     totalGames: games.length, // Count all games including forfeits

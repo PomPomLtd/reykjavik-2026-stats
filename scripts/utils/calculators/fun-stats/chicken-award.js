@@ -7,7 +7,7 @@
  * Black retreats: moving to a higher rank (closer to rank 8)
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate chicken award (most retreating moves)
@@ -42,7 +42,7 @@ function calculateChickenAward(games) {
 
     // Check if this game has the most retreats
     const players = getPlayerNames(game);
-    const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+    const gameId = getGameId(game);
     if (whiteRetreats > chickenAward.retreats) {
       chickenAward = {
         retreats: whiteRetreats,

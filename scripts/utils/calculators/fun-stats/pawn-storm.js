@@ -6,7 +6,7 @@
  */
 
 const { analyzeGamePhases } = require('../../game-phases');
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate pawn storm (most pawn moves in opening)
@@ -29,7 +29,7 @@ function calculatePawnStorm(games) {
 
     if (openingPawnMoves > pawnStorm.count) {
       const players = getPlayerNames(game);
-      const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+      const gameId = getGameId(game);
       pawnStorm = {
         count: openingPawnMoves,
         gameIndex: idx,

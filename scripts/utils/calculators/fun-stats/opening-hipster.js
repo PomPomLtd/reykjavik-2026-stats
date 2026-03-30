@@ -7,7 +7,7 @@
  */
 
 const { getOpeningName } = require('../../chess-openings');
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate opening hipster (most obscure opening)
@@ -32,7 +32,7 @@ function calculateOpeningHipster(games) {
 
         if (obscurityScore > openingHipster.obscurityScore) {
           const players = getPlayerNames(game);
-          const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+          const gameId = getGameId(game);
           openingHipster = {
             gameIndex: idx,
             gameId,

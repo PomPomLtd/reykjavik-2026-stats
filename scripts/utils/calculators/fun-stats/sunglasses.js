@@ -5,7 +5,7 @@
  * Tracks the player with the most captures on light squares.
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Check if a square is a light square
@@ -43,7 +43,7 @@ function calculateSunglasses(games) {
 
     // Check if this game has the most light square captures
     const players = getPlayerNames(game);
-    const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+    const gameId = getGameId(game);
     if (whiteLightCaptures > sunglasses.captures) {
       sunglasses = {
         captures: whiteLightCaptures,

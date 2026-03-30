@@ -5,7 +5,7 @@
  * Tracks the queen that traveled the most distance (Manhattan distance).
  */
 
-const { getPlayerNames, calculateDistance } = require('../helpers');
+const { getPlayerNames, calculateDistance, getGameId } = require('../helpers');
 
 /**
  * Calculate sporty queen (queen with most travel distance)
@@ -34,7 +34,7 @@ function calculateSportyQueen(games) {
 
     // Check if this game has the most active queen
     const players = getPlayerNames(game);
-    const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+    const gameId = getGameId(game);
     if (whiteQueenDistance > sportyQueen.distance) {
       sportyQueen = {
         distance: whiteQueenDistance,

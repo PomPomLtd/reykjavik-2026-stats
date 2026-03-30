@@ -5,7 +5,7 @@
  * Tracks the piece that visited the most unique squares.
  */
 
-const { getPlayerNames, PIECE_NAMES } = require('../helpers');
+const { getPlayerNames, PIECE_NAMES, getGameId } = require('../helpers');
 
 /**
  * Calculate square tourist (piece visiting most squares)
@@ -51,7 +51,7 @@ function calculateSquareTourist(games) {
         const [color, piece, startSquare] = pieceKey.split('_');
         const colorName = color === 'w' ? 'White' : 'Black';
         const players = getPlayerNames(game);
-        const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+        const gameId = getGameId(game);
         squareTourist = {
           squares: uniqueSquares,
           gameIndex: idx,

@@ -6,7 +6,7 @@
  * A queen trade occurs when both queens are captured.
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate fastest and slowest queen trades
@@ -44,7 +44,7 @@ function calculateQueenTrades(games) {
     if (queenTradeMoveNumber !== null) {
       if (queenTradeMoveNumber < fastestQueenTrade.moves) {
         const players = getPlayerNames(game);
-        const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+        const gameId = getGameId(game);
         fastestQueenTrade = {
           moves: queenTradeMoveNumber,
           gameIndex: idx,
@@ -55,7 +55,7 @@ function calculateQueenTrades(games) {
 
       if (queenTradeMoveNumber > slowestQueenTrade.moves) {
         const players = getPlayerNames(game);
-        const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+        const gameId = getGameId(game);
         slowestQueenTrade = {
           moves: queenTradeMoveNumber,
           gameIndex: idx,

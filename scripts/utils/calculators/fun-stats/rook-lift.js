@@ -6,7 +6,7 @@
  * (first time a rook leaves its back rank).
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate rook lift (earliest rook leaving back rank)
@@ -34,7 +34,7 @@ function calculateRookLift(games) {
           if (!whiteRookLifted[startSquare] && firstRookLift === null) {
             whiteRookLifted[startSquare] = true;
             const players = getPlayerNames(game);
-            const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+            const gameId = getGameId(game);
             firstRookLift = {
               moveNumber: Math.ceil((moveIdx + 1) / 2),
               gameIndex: idx,
@@ -53,7 +53,7 @@ function calculateRookLift(games) {
           if (!blackRookLifted[startSquare] && firstRookLift === null) {
             blackRookLifted[startSquare] = true;
             const players = getPlayerNames(game);
-            const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+            const gameId = getGameId(game);
             firstRookLift = {
               moveNumber: Math.ceil((moveIdx + 1) / 2),
               gameIndex: idx,

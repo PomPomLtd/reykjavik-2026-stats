@@ -488,8 +488,10 @@ def main():
         white = game.headers.get('White', 'Unknown')
         black = game.headers.get('Black', 'Unknown')
 
-        # Extract gameId from headers (GameId or Site URL)
+        # Extract gameId from headers (GameId, ChapterURL, or Site URL)
         game_id = game.headers.get('GameId')
+        if not game_id:
+            game_id = game.headers.get('ChapterURL')
         if not game_id:
             site = game.headers.get('Site', '')
             game_id = site.split('/')[-1] if site else None

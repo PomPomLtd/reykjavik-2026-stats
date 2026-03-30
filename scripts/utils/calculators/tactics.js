@@ -6,7 +6,7 @@
  * en passant, underpromotions, and capture streaks.
  */
 
-const { getPlayerNames, filterGamesWithMoves } = require('./helpers');
+const { getPlayerNames, filterGamesWithMoves, getGameId } = require('./helpers');
 
 /**
  * Calculate tactical statistics
@@ -57,7 +57,7 @@ function calculateTactics(games) {
       }
     });
 
-    const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+    const gameId = getGameId(game);
 
     if (sm.totalCaptures > bloodiestGame.captures) {
       bloodiestGame = { captures: sm.totalCaptures, gameIndex: idx, gameId, ...players };

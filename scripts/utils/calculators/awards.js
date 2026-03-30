@@ -7,7 +7,7 @@
  */
 
 const { analyzeGamePhases } = require('../game-phases');
-const { getPlayerNames, toFullMoves, filterGamesWithMoves } = require('./helpers');
+const { getPlayerNames, toFullMoves, filterGamesWithMoves, getGameId } = require('./helpers');
 const { calculateTactics } = require('./tactics');
 const { calculateCheckmates } = require('./checkmates');
 
@@ -34,10 +34,10 @@ function calculateAwards(games) {
 
   // Extract gameIds for endgameWizard and openingSprinter
   const endgameGame = gamesWithMoves[longestEndgame.gameIndex];
-  const endgameGameId = endgameGame.headers?.GameId || endgameGame.headers?.ChapterURL || endgameGame.headers?.Site?.split('/').pop() || null;
+  const endgameGameId = getGameId(endgameGame);
 
   const openingGameId = shortestOpening.moves !== Infinity
-    ? (gamesWithMoves[shortestOpening.gameIndex].headers?.GameId || gamesWithMoves[shortestOpening.gameIndex].headers?.ChapterURL || gamesWithMoves[shortestOpening.gameIndex].headers?.Site?.split('/').pop() || null)
+    ? (getGameId(gamesWithMoves[shortestOpening.gameIndex]))
     : null;
 
   return {

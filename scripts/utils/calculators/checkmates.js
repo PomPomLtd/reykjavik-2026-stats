@@ -6,7 +6,7 @@
  * and tracks the fastest checkmate in the round.
  */
 
-const { getPlayerNames, filterGamesWithMoves } = require('./helpers');
+const { getPlayerNames, filterGamesWithMoves, getGameId } = require('./helpers');
 
 /**
  * Map chess.js piece codes to full names
@@ -42,7 +42,7 @@ function calculateCheckmates(games) {
 
       if (mate.moveNumber < fastestMate.moves) {
         const players = getPlayerNames(game);
-        const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+        const gameId = getGameId(game);
         fastestMate = {
           moves: mate.moveNumber, // Already in full moves from PGN parser
           gameIndex: idx,

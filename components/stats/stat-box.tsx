@@ -92,7 +92,7 @@ export function StatBox({ title, emoji, player, details, colorScheme, featured =
 
   return (
     <a
-      href={`https://lichess.org/${gameId}`}
+      href={gameId?.startsWith('http') ? gameId : `https://lichess.org/${gameId}`}
       target="_blank"
       rel="noopener noreferrer"
       className={`p-4 ${colors.bg} rounded-lg ${borderClass} ${hoverClass} block`}

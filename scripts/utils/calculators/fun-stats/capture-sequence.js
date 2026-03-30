@@ -5,7 +5,7 @@
  * Tracks the longest consecutive capture sequence in any game.
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate longest capture sequence
@@ -40,7 +40,7 @@ function calculateCaptureSequence(games) {
     // Update longest capture sequence across all games
     if (maxCaptureSequence > longestCaptureSequence.length) {
       const players = getPlayerNames(game);
-      const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+      const gameId = getGameId(game);
       longestCaptureSequence = {
         length: maxCaptureSequence,
         gameIndex: idx,

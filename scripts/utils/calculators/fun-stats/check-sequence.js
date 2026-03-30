@@ -6,7 +6,7 @@
  * Opponent moves between checks are allowed.
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate longest check sequence
@@ -60,7 +60,7 @@ function calculateCheckSequence(games) {
     // Update longest check sequence across all games
     if (maxCheckSequence > longestCheckSequence.length) {
       const players = getPlayerNames(game);
-      const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+      const gameId = getGameId(game);
       longestCheckSequence = {
         length: maxCheckSequence,
         gameIndex: idx,

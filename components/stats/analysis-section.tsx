@@ -161,7 +161,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="GM Energy"
             emoji="🎖️"
-            player={<PlayerName name={summary.accuracyKing.player === 'white' ? summary.accuracyKing.white : summary.accuracyKing.black} />}
+            player={<PlayerVs white={summary.accuracyKing.white} black={summary.accuracyKing.black} highlight={summary.accuracyKing.player} />}
             details={
               <div className="flex flex-col gap-1">
                 <span>Accuracy: <strong className="text-yellow-900 dark:text-yellow-200">{summary.accuracyKing.accuracy}%</strong></span>
@@ -178,7 +178,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Blunder of the Round"
             emoji="💥"
-            player={<PlayerName name={summary.biggestBlunder.player === 'white' ? summary.biggestBlunder.white : summary.biggestBlunder.black} />}
+            player={<PlayerVs white={summary.biggestBlunder.white} black={summary.biggestBlunder.black} highlight={summary.biggestBlunder.player} />}
             details={
               <div className="flex flex-col gap-1">
                 <span>Move <strong className="font-mono text-red-900 dark:text-red-200">{summary.biggestBlunder.moveNumber}. {summary.biggestBlunder.move}</strong></span>
@@ -195,7 +195,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Comeback King"
             emoji="🎯"
-            player={<PlayerName name={summary.comebackKing.player === 'white' ? summary.comebackKing.white : summary.comebackKing.black} />}
+            player={<PlayerVs white={summary.comebackKing.white} black={summary.comebackKing.black} highlight={summary.comebackKing.player} />}
             details={
               <div className="flex flex-col gap-1">
                 <span>Swing: <strong className="text-green-900 dark:text-green-200">{summary.comebackKing.swing} cp</strong></span>
@@ -212,7 +212,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Lucky Escape"
             emoji="😱"
-            player={<PlayerName name={summary.luckyEscape.player === 'white' ? summary.luckyEscape.white : summary.luckyEscape.black} />}
+            player={<PlayerVs white={summary.luckyEscape.white} black={summary.luckyEscape.black} highlight={summary.luckyEscape.player} />}
             details={
               <div className="flex flex-col gap-1">
                 <span>Escaped: <strong className="text-indigo-900 dark:text-indigo-200">{summary.luckyEscape.escapeAmount} cp</strong></span>
@@ -229,7 +229,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Stockfish Buddy"
             emoji="🤖"
-            player={<PlayerName name={summary.stockfishBuddy.player === 'white' ? summary.stockfishBuddy.white : summary.stockfishBuddy.black} />}
+            player={<PlayerVs white={summary.stockfishBuddy.white} black={summary.stockfishBuddy.black} highlight={summary.stockfishBuddy.player} />}
             details={
               <div className="flex flex-col gap-1">
                 <span><strong className="text-blue-900 dark:text-blue-200">{summary.stockfishBuddy.engineMoves}</strong> engine-level moves</span>
@@ -246,7 +246,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Inaccuracy King"
             emoji="👌"
-            player={<PlayerName name={summary.inaccuracyKing.player === 'white' ? summary.inaccuracyKing.white : summary.inaccuracyKing.black} />}
+            player={<PlayerVs white={summary.inaccuracyKing.white} black={summary.inaccuracyKing.black} highlight={summary.inaccuracyKing.player} />}
             details={
               <div className="flex flex-col gap-1">
                 <span><strong className="text-orange-900 dark:text-orange-200">{summary.inaccuracyKing.inaccuracies}</strong> inaccuracies</span>
@@ -266,7 +266,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Best Performance"
             emoji="⭐"
-            player={<PlayerName name={summary.lowestACPL.player === 'white' ? summary.lowestACPL.white : summary.lowestACPL.black} />}
+            player={<PlayerVs white={summary.lowestACPL.white} black={summary.lowestACPL.black} highlight={summary.lowestACPL.player} />}
             details={<>ACPL: <strong>{summary.lowestACPL.acpl}</strong> / Accuracy: <strong>{summary.lowestACPL.accuracy}%</strong></>}
             colorScheme="green"
             gameId={summary.lowestACPL.gameId}
@@ -277,7 +277,7 @@ export function AnalysisSection({ analysis }: AnalysisSectionProps) {
           <StatBox
             title="Roughest Day"
             emoji="😰"
-            player={<PlayerName name={summary.highestACPL.player === 'white' ? summary.highestACPL.white : summary.highestACPL.black} />}
+            player={<PlayerVs white={summary.highestACPL.white} black={summary.highestACPL.black} highlight={summary.highestACPL.player} />}
             details={<>ACPL: <strong>{summary.highestACPL.acpl}</strong> / Accuracy: <strong>{summary.highestACPL.accuracy}%</strong></>}
             colorScheme="orange"
             gameId={summary.highestACPL.gameId}

@@ -5,7 +5,7 @@
  * Tracks the player with the most moves on edge files (a/h).
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate edge lord (most edge file moves)
@@ -34,7 +34,7 @@ function calculateEdgeLord(games) {
 
     // Check if this game has the most edge moves
     const players = getPlayerNames(game);
-    const gameId = game.headers?.GameId || game.headers?.ChapterURL || game.headers?.Site?.split('/').pop() || null;
+    const gameId = getGameId(game);
     if (whiteEdgeMoves > edgeLord.moves) {
       edgeLord = {
         moves: whiteEdgeMoves,

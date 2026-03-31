@@ -238,22 +238,27 @@ def calculate_blunder_severity(eval_before, eval_after, eval_before_type, eval_a
 
     return severity
 
-def eval_to_cp(eval_result):
+def eval_to_cp(eval_result, white_to_move):
     """
-    Convert a Stockfish eval result to centipawns from white's perspective.
-    Mate scores use Lichess convention: very large values that still distinguish mate-in-N.
+    Convert a Stockfish eval result to centipawns from WHITE's perspective.
+
+    IMPORTANT: Stockfish returns evals from the side-to-move's perspective.
+    We must negate when it's black to move so all values are consistently
+    from white's perspective throughout.
     """
     if eval_result['type'] == 'cp':
-        return eval_result['value']
+        raw = eval_result['value']
     elif eval_result['type'] == 'mate':
         mate_in = eval_result['value']
-        # Lichess: Int.MaxValue - mate_moves for positive, Int.MinValue - mate_moves for negative
-        # We use 100000 as a practical stand-in
         if mate_in > 0:
-            return 100000 - mate_in
+            raw = 100000 - mate_in
         else:
-            return -100000 - mate_in
-    return 0
+            raw = -100000 - mate_in
+    else:
+        raw = 0
+
+    # Negate if black to move (Stockfish gives eval from side-to-move's perspective)
+    return raw if white_to_move else -raw
 
 def analyze_game(game, stockfish, depth=15, sample_rate=1):
     """Analyze a single game with Stockfish using Lichess-style accuracy."""
@@ -274,14 +279,14 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
     biggest_comeback = None
     lucky_escape = None
 
-    # Collect all position evals for game-level accuracy calculation
+    # Collect all position evals (from WHITE's perspective) for game-level accuracy
     # all_cps[0] = eval of starting position, all_cps[i+1] = eval after move i
     all_cps = []
 
-    # Eval the starting position (Lichess uses Cp.initial = 15)
+    # Eval the starting position (white to move)
     stockfish.set_fen_position(board.fen())
     initial_eval = stockfish.get_evaluation()
-    all_cps.append(eval_to_cp(initial_eval))
+    all_cps.append(eval_to_cp(initial_eval, white_to_move=True))
 
     # Track eval history for comeback detection
     eval_history = []
@@ -295,9 +300,10 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
         if move_index_for_player % sample_rate != 0:
             board.push(move)
             # Still need eval after this move for accuracy calculation
+            # After the move, it's the OTHER side's turn
             stockfish.set_fen_position(board.fen())
             skip_eval = stockfish.get_evaluation()
-            all_cps.append(eval_to_cp(skip_eval))
+            all_cps.append(eval_to_cp(skip_eval, white_to_move=not is_white_move))
             continue
 
         move_san = board.san(move)
@@ -308,9 +314,10 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
         board.push(move)
 
         # Get evaluation after move
+        # After white moves, it's black to move (so negate); after black moves, it's white to move
         stockfish.set_fen_position(board.fen())
         eval_after = stockfish.get_evaluation()
-        cp_after = eval_to_cp(eval_after)
+        cp_after = eval_to_cp(eval_after, white_to_move=not is_white_move)
         all_cps.append(cp_after)
 
         # Classify move using Lichess thresholds

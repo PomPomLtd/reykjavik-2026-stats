@@ -48,71 +48,160 @@ from stockfish import Stockfish
 import math
 import statistics
 
+def winning_chances(cp):
+    """
+    Convert centipawn evaluation to winning chances [-1, +1].
+    Lichess formula from lichess-org/scalachess eval.scala.
+    """
+    return max(-1, min(1, 2 / (1 + math.exp(-0.00368208 * cp)) - 1))
+
 def cp_to_win_percentage(cp):
     """
-    Convert centipawn evaluation to win percentage.
-    Lichess formula: https://lichess.org/page/accuracy
-    Win% = 50 + 50 * (2 / (1 + exp(-0.00368208 * cp)) - 1)
+    Convert centipawn evaluation to win percentage [0, 100].
+    Lichess caps centipawns at ±1000 before conversion.
     """
-    return 50 + 50 * (2 / (1 + math.exp(-0.00368208 * cp)) - 1)
+    capped = max(-1000, min(1000, cp))
+    return 50 + 50 * winning_chances(capped)
 
-def move_accuracy(win_loss):
+def move_accuracy(win_before, win_after):
     """
-    Calculate per-move accuracy from win percentage loss.
-    Lichess formula: 103.1668 * exp(-0.04354 * win_loss) - 3.1669
+    Calculate per-move accuracy from win percentages before/after.
+    Lichess formula from AccuracyPercent.scala with +1 uncertainty bonus.
+    If the position improved for the player, accuracy is 100%.
     """
-    acc = 103.1668 * math.exp(-0.04354 * win_loss) - 3.1669
-    return max(0, min(100, acc))
+    if win_after >= win_before:
+        return 100.0
+    win_diff = win_before - win_after
+    raw = 103.1668100711649 * math.exp(-0.04354415386753951 * win_diff) + (-3.166924740191411)
+    return max(0, min(100, raw + 1))  # +1 uncertainty bonus per Lichess
 
-def classify_move_by_win_percentage(win_before, win_after, is_white):
+def classify_move(cp_before, cp_after, is_white):
     """
-    Classify move quality based on win percentage change.
+    Classify move quality using Lichess thresholds on winning chances [-1, +1].
+    From lichess-org/lila modules/tree/src/main/Advice.scala.
 
-    Returns: (quality, win_loss) where quality is 'excellent', 'good', 'inaccuracies', 'mistakes', or 'blunders'
+    Returns: (quality, win_loss) where win_loss is on the [0, 100] win% scale.
     """
-    # Calculate win percentage loss (from player's perspective)
+    # Winning chances on [-1, +1] scale (NOT capped at ±1000 for classification)
+    prev_chances = winning_chances(cp_before)
+    curr_chances = winning_chances(cp_after)
+
+    # Delta from the mover's perspective (positive = position got worse)
+    delta = prev_chances - curr_chances
+    if not is_white:
+        delta = -delta
+
+    # Win percentage loss for accuracy calculation (on [0, 100] scale, capped evals)
+    wp_before = cp_to_win_percentage(cp_before)
+    wp_after = cp_to_win_percentage(cp_after)
     if is_white:
-        win_loss = win_before - win_after
+        win_loss = max(0, wp_before - wp_after)
     else:
-        win_loss = (100 - win_before) - (100 - win_after)
+        win_loss = max(0, wp_after - wp_before)
 
-    # Normalize to 0-100 range
-    win_loss = max(0, win_loss)
-
-    # Classification thresholds (based on win% loss)
-    if win_loss < 2:
-        return 'excellent', win_loss
-    elif win_loss < 5:
-        return 'good', win_loss
-    elif win_loss < 10:
-        return 'inaccuracies', win_loss
-    elif win_loss < 20:
-        return 'mistakes', win_loss
-    else:
+    # Lichess thresholds on winning chances scale
+    if delta >= 0.3:
         return 'blunders', win_loss
+    elif delta >= 0.2:
+        return 'mistakes', win_loss
+    elif delta >= 0.1:
+        return 'inaccuracies', win_loss
+    elif delta >= 0.02:
+        return 'good', win_loss
+    else:
+        return 'excellent', win_loss
 
-def calculate_accuracy_from_win_percentage(win_losses):
-    """
-    Calculate game accuracy from list of win percentage losses.
-    Uses harmonic-mean approach matching Lichess:
-    1. Compute per-move accuracy for each move
-    2. Combine via harmonic mean (penalizes bad moves more)
-    """
-    if not win_losses:
-        return 100
-
-    # Per-move accuracies
-    accuracies = [move_accuracy(wl) for wl in win_losses]
-
-    # Filter out zero accuracies for harmonic mean (avoid division by zero)
-    nonzero = [a for a in accuracies if a > 0]
-    if not nonzero:
+def _standard_deviation(values):
+    """Population standard deviation matching Lichess Maths.scala."""
+    if not values:
         return 0
+    m = sum(values) / len(values)
+    return math.sqrt(sum((x - m) ** 2 for x in values) / len(values))
 
-    # Harmonic mean penalizes bad moves more than arithmetic mean
-    hm = statistics.harmonic_mean(nonzero)
+def _harmonic_mean(values):
+    """Harmonic mean with floor of 1 per value, matching Lichess Maths.scala."""
+    if not values:
+        return 0
+    return len(values) / sum(1 / max(1, v) for v in values)
 
-    return max(0, min(100, round(hm, 1)))
+def _weighted_mean(pairs):
+    """Weighted mean from (value, weight) pairs."""
+    if not pairs:
+        return 0
+    total_w = sum(w for _, w in pairs)
+    if total_w == 0:
+        return 0
+    return sum(v * w for v, w in pairs) / total_w
+
+def calculate_game_accuracy(all_cps):
+    """
+    Calculate game accuracy using Lichess's full algorithm from AccuracyPercent.scala.
+
+    Combines volatility-weighted mean with harmonic mean of per-move accuracies.
+    Uses sliding windows to weight moves by positional volatility.
+
+    Args:
+        all_cps: list of centipawn evals for each position, starting from the
+                 initial position (before move 1). Length = num_moves + 1.
+                 Even indices (0, 2, 4...) are positions before white moves.
+                 Odd indices (1, 3, 5...) are positions before black moves.
+    Returns:
+        (white_accuracy, black_accuracy) as floats
+    """
+    if len(all_cps) < 2:
+        return 100, 100
+
+    # Convert all positions to win percentages
+    all_wp = [cp_to_win_percentage(cp) for cp in all_cps]
+
+    num_moves = len(all_cps) - 1
+
+    # Sliding window size: clamp(num_moves / 10, 2, 8)
+    window_size = max(2, min(8, num_moves // 10))
+
+    # Build windows for volatility weighting
+    # First (window_size - 2) entries reuse the first window
+    first_window = all_wp[:window_size]
+    num_initial = min(window_size, len(all_wp)) - 2
+    windows = [first_window] * max(0, num_initial)
+
+    # Sliding windows
+    for i in range(len(all_wp) - window_size + 1):
+        windows.append(all_wp[i:i + window_size])
+
+    # Weights = standard deviation of each window, clamped to [0.5, 12]
+    weights = []
+    for w in windows:
+        sd = _standard_deviation(w)
+        weights.append(max(0.5, min(12, sd)))
+
+    # Compute per-move accuracy with color assignment
+    white_weighted = []  # (accuracy, weight)
+    black_weighted = []
+
+    for i in range(num_moves):
+        prev_wp = all_wp[i]
+        next_wp = all_wp[i + 1]
+        weight = weights[i] if i < len(weights) else 0.5
+
+        is_white = (i % 2 == 0)  # move 0 = white, move 1 = black, etc.
+
+        if is_white:
+            acc = move_accuracy(prev_wp, next_wp)
+            white_weighted.append((acc, weight))
+        else:
+            # Black's perspective: invert win percentages
+            acc = move_accuracy(100 - prev_wp, 100 - next_wp)
+            black_weighted.append((acc, weight))
+
+    def color_accuracy(pairs):
+        if not pairs:
+            return 100
+        wm = _weighted_mean(pairs)
+        hm = _harmonic_mean([a for a, _ in pairs])
+        return round((wm + hm) / 2, 1)
+
+    return color_accuracy(white_weighted), color_accuracy(black_weighted)
 
 def calculate_blunder_severity(eval_before, eval_after, eval_before_type, eval_after_type, win_loss):
     """
@@ -149,60 +238,71 @@ def calculate_blunder_severity(eval_before, eval_after, eval_before_type, eval_a
 
     return severity
 
+def eval_to_cp(eval_result):
+    """
+    Convert a Stockfish eval result to centipawns from white's perspective.
+    Mate scores use Lichess convention: very large values that still distinguish mate-in-N.
+    """
+    if eval_result['type'] == 'cp':
+        return eval_result['value']
+    elif eval_result['type'] == 'mate':
+        mate_in = eval_result['value']
+        # Lichess: Int.MaxValue - mate_moves for positive, Int.MinValue - mate_moves for negative
+        # We use 100000 as a practical stand-in
+        if mate_in > 0:
+            return 100000 - mate_in
+        else:
+            return -100000 - mate_in
+    return 0
+
 def analyze_game(game, stockfish, depth=15, sample_rate=1):
-    """Analyze a single game with Stockfish using Lichess-style win percentage."""
+    """Analyze a single game with Stockfish using Lichess-style accuracy."""
 
     board = game.board()
     moves = list(game.mainline_moves())
 
-    white_win_losses = []  # Track win% losses for accuracy calculation
-    black_win_losses = []
-    white_cp_losses = []  # Track actual centipawn losses for ACPL
+    white_cp_losses = []
     black_cp_losses = []
 
     white_quality = {'blunders': 0, 'mistakes': 0, 'inaccuracies': 0, 'good': 0, 'excellent': 0}
     black_quality = {'blunders': 0, 'mistakes': 0, 'inaccuracies': 0, 'good': 0, 'excellent': 0}
 
-    # Track engine-level moves (win% loss < 2%)
     white_engine_moves = 0
     black_engine_moves = 0
 
     biggest_blunder = None
-    biggest_comeback = None  # Track biggest eval swing from losing position
-    lucky_escape = None  # Track when opponent didn't punish a blunder
+    biggest_comeback = None
+    lucky_escape = None
 
-    # Track eval history for comeback detection (last 10 evals with type info)
-    eval_history = []  # Stores tuples: (cp_value, eval_type, mate_in_value)
-    # Track previous move eval to detect missed punishments
+    # Collect all position evals for game-level accuracy calculation
+    # all_cps[0] = eval of starting position, all_cps[i+1] = eval after move i
+    all_cps = []
+
+    # Eval the starting position (Lichess uses Cp.initial = 15)
+    stockfish.set_fen_position(board.fen())
+    initial_eval = stockfish.get_evaluation()
+    all_cps.append(eval_to_cp(initial_eval))
+
+    # Track eval history for comeback detection
+    eval_history = []
     prev_eval = None
 
     for move_num, move in enumerate(moves):
         is_white_move = move_num % 2 == 0
 
         # Sample every Nth move FOR EACH PLAYER to save time
-        # White moves: 0, 2, 4, 6... -> sample 0, 4, 8...
-        # Black moves: 1, 3, 5, 7... -> sample 1, 5, 9...
         move_index_for_player = move_num // 2
         if move_index_for_player % sample_rate != 0:
             board.push(move)
+            # Still need eval after this move for accuracy calculation
+            stockfish.set_fen_position(board.fen())
+            skip_eval = stockfish.get_evaluation()
+            all_cps.append(eval_to_cp(skip_eval))
             continue
 
-        # Get SAN notation before making the move
         move_san = board.san(move)
 
-        # Get evaluation before move
-        stockfish.set_fen_position(board.fen())
-        eval_before = stockfish.get_evaluation()
-
-        # Convert to centipawns from white's perspective
-        # Use more granular mate scoring: mate-in-N = 10000 - (N * 10)
-        if eval_before['type'] == 'cp':
-            cp_before = eval_before['value']
-        elif eval_before['type'] == 'mate':
-            mate_in = eval_before['value']
-            cp_before = (10000 - abs(mate_in) * 10) * (1 if mate_in > 0 else -1)
-        else:
-            cp_before = 0
+        cp_before = all_cps[-1]  # Already have eval before this move
 
         # Make the move
         board.push(move)
@@ -210,48 +310,32 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
         # Get evaluation after move
         stockfish.set_fen_position(board.fen())
         eval_after = stockfish.get_evaluation()
+        cp_after = eval_to_cp(eval_after)
+        all_cps.append(cp_after)
 
-        # Convert to centipawns
-        if eval_after['type'] == 'cp':
-            cp_after = eval_after['value']
-        elif eval_after['type'] == 'mate':
-            mate_in = eval_after['value']
-            cp_after = (10000 - abs(mate_in) * 10) * (1 if mate_in > 0 else -1)
-        else:
-            cp_after = 0
-
-        # Convert centipawns to win percentages
-        win_before = cp_to_win_percentage(cp_before)
-        win_after = cp_to_win_percentage(cp_after)
+        # Classify move using Lichess thresholds
+        quality, win_loss = classify_move(cp_before, cp_after, is_white_move)
 
         if is_white_move:
-            # Calculate actual centipawn loss (only if both evals are non-mate)
-            # Skip ACPL calculation when mate scores involved (unreliable centipawn comparison)
-            if eval_before['type'] == 'cp' and eval_after['type'] == 'cp':
-                cp_loss = max(0, cp_before - cp_after)
-                white_cp_losses.append(cp_loss)
-
-            # Classify move and track win% loss
-            quality, win_loss = classify_move_by_win_percentage(win_before, win_after, True)
             white_quality[quality] += 1
-            white_win_losses.append(win_loss)
-
-            # Track engine-level moves (excellent = win% loss < 2%)
             if quality == 'excellent':
                 white_engine_moves += 1
 
-            # Track biggest blunder using severity calculation
+            # ACPL: use actual centipawn loss, include mate-territory moves too
+            cp_loss = max(0, cp_before - cp_after)
+            # Cap at 1000 to avoid mate-score distortion in ACPL
+            white_cp_losses.append(min(cp_loss, 1000))
+
             if quality == 'blunders':
                 severity = calculate_blunder_severity(
                     cp_before, cp_after,
-                    eval_before['type'], eval_after['type'],
-                    win_loss
+                    'cp', eval_after['type'], win_loss
                 )
                 if biggest_blunder is None or severity > biggest_blunder.get('severity', 0):
                     biggest_blunder = {
                         'moveNumber': move_num // 2 + 1,
                         'player': 'white',
-                        'cpLoss': int(cp_loss) if eval_before['type'] == 'cp' and eval_after['type'] == 'cp' else 0,
+                        'cpLoss': int(min(cp_loss, 10000)),
                         'winLoss': win_loss,
                         'severity': severity,
                         'move': move_san,
@@ -259,33 +343,24 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
                         'evalAfter': cp_after
                     }
         else:
-            # Calculate actual centipawn loss (from black's perspective)
-            # Skip ACPL calculation when mate scores involved (unreliable centipawn comparison)
-            if eval_before['type'] == 'cp' and eval_after['type'] == 'cp':
-                cp_loss = max(0, cp_after - cp_before)  # Black wants negative eval
-                black_cp_losses.append(cp_loss)
-
-            # Classify move and track win% loss
-            quality, win_loss = classify_move_by_win_percentage(win_before, win_after, False)
             black_quality[quality] += 1
-            black_win_losses.append(win_loss)
-
-            # Track engine-level moves (excellent = win% loss < 2%)
             if quality == 'excellent':
                 black_engine_moves += 1
 
-            # Track biggest blunder using severity calculation (flip evals for black)
+            # ACPL from black's perspective
+            cp_loss = max(0, cp_after - cp_before)
+            black_cp_losses.append(min(cp_loss, 1000))
+
             if quality == 'blunders':
                 severity = calculate_blunder_severity(
-                    -cp_before, -cp_after,  # Flip for black's perspective
-                    eval_before['type'], eval_after['type'],
-                    win_loss
+                    -cp_before, -cp_after,
+                    'cp', eval_after['type'], win_loss
                 )
                 if biggest_blunder is None or severity > biggest_blunder.get('severity', 0):
                     biggest_blunder = {
                         'moveNumber': move_num // 2 + 1,
                         'player': 'black',
-                        'cpLoss': int(cp_loss) if eval_before['type'] == 'cp' and eval_after['type'] == 'cp' else 0,
+                        'cpLoss': int(min(cp_loss, 10000)),
                         'winLoss': win_loss,
                         'severity': severity,
                         'move': move_san,
@@ -293,10 +368,8 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
                         'evalAfter': cp_after
                     }
 
-        # Track lucky escape: opponent didn't punish a position
-        # If previous move gave opponent an advantage (> +200cp) but they didn't maintain it
+        # Track lucky escape
         if prev_eval is not None:
-            # White had advantage, black didn't punish (eval went back to neutral/white favor)
             if prev_eval < -200 and cp_after > -50:
                 escape_amount = abs(prev_eval) - abs(cp_after)
                 if lucky_escape is None or escape_amount > lucky_escape.get('escapeAmount', 0):
@@ -307,8 +380,6 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
                         'evalAfter': cp_after,
                         'moveNumber': move_num // 2 + 1
                     }
-
-            # Black had advantage, white didn't punish (eval went back to neutral/black favor)
             if prev_eval > 200 and cp_after < 50:
                 escape_amount = abs(prev_eval) - abs(cp_after)
                 if lucky_escape is None or escape_amount > lucky_escape.get('escapeAmount', 0):
@@ -320,10 +391,9 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
                         'moveNumber': move_num // 2 + 1
                     }
 
-        # Update previous eval for next iteration
         prev_eval = cp_after
 
-        # Track eval history and detect comebacks (store last 10 evals with metadata)
+        # Track eval history for comeback detection
         eval_history.append({
             'cp': cp_after,
             'type': eval_after['type'],
@@ -332,10 +402,7 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
         if len(eval_history) > 10:
             eval_history.pop(0)
 
-        # Check for comeback: look back at eval history
-        # A comeback is when eval swung from losing to winning
         if len(eval_history) >= 5:
-            # Extract cp values for min/max calculation
             cp_values = [e['cp'] for e in eval_history]
             min_eval_idx = cp_values.index(min(cp_values))
             max_eval_idx = cp_values.index(max(cp_values))
@@ -343,76 +410,53 @@ def analyze_game(game, stockfish, depth=15, sample_rate=1):
             min_eval_white = eval_history[min_eval_idx]['cp']
             max_eval_white = eval_history[max_eval_idx]['cp']
 
-            # White comeback: was losing badly (< -300 or getting mated), now winning
             if min_eval_white < -300 and cp_after > 300:
-                swing = cp_after - min_eval_white
-                # Cap swing at 2000 cp to avoid unrealistic mate-score swings
-                swing = min(swing, 2000)
-
-                # Format eval strings (use mate notation if applicable)
+                swing = min(cp_after - min_eval_white, 2000)
                 eval_from_str = f"M{eval_history[min_eval_idx]['mate']}" if eval_history[min_eval_idx]['type'] == 'mate' else str(min_eval_white)
                 eval_to_str = f"M{eval_after.get('value')}" if eval_after['type'] == 'mate' else str(cp_after)
-
                 if biggest_comeback is None or swing > biggest_comeback.get('swing', 0):
                     biggest_comeback = {
-                        'player': 'white',
-                        'swing': swing,
-                        'evalFrom': eval_from_str,
-                        'evalTo': eval_to_str,
-                        'evalFromCp': min_eval_white,
-                        'evalToCp': cp_after,
+                        'player': 'white', 'swing': swing,
+                        'evalFrom': eval_from_str, 'evalTo': eval_to_str,
+                        'evalFromCp': min_eval_white, 'evalToCp': cp_after,
                         'moveNumber': move_num // 2 + 1
                     }
 
-            # Black comeback: was losing badly (> +300 or getting mated), now winning
             if max_eval_white > 300 and cp_after < -300:
-                swing = max_eval_white - cp_after
-                # Cap swing at 2000 cp to avoid unrealistic mate-score swings
-                swing = min(swing, 2000)
-
-                # Format eval strings (use mate notation if applicable)
+                swing = min(max_eval_white - cp_after, 2000)
                 eval_from_str = f"M{eval_history[max_eval_idx]['mate']}" if eval_history[max_eval_idx]['type'] == 'mate' else str(max_eval_white)
                 eval_to_str = f"M{eval_after.get('value')}" if eval_after['type'] == 'mate' else str(cp_after)
-
                 if biggest_comeback is None or swing > biggest_comeback.get('swing', 0):
                     biggest_comeback = {
-                        'player': 'black',
-                        'swing': swing,
-                        'evalFrom': eval_from_str,
-                        'evalTo': eval_to_str,
-                        'evalFromCp': max_eval_white,
-                        'evalToCp': cp_after,
+                        'player': 'black', 'swing': swing,
+                        'evalFrom': eval_from_str, 'evalTo': eval_to_str,
+                        'evalFromCp': max_eval_white, 'evalToCp': cp_after,
                         'moveNumber': move_num // 2 + 1
                     }
 
-    # Calculate accuracy using Lichess formula (based on win% losses)
-    white_accuracy = calculate_accuracy_from_win_percentage(white_win_losses)
-    black_accuracy = calculate_accuracy_from_win_percentage(black_win_losses)
+    # Calculate accuracy using full Lichess algorithm (sliding windows + volatility weighting)
+    white_accuracy, black_accuracy = calculate_game_accuracy(all_cps)
 
-    # Calculate ACPL (actual centipawn loss)
-    # Use capped mean to prevent outlier moves from dominating the average
-    # Cap individual move losses at 150 CP to balance accuracy with outlier robustness
-    # This matches Lichess approach: ACPL reflects typical play, not worst blunders
+    # Calculate ACPL with cap at 150 per move
     MAX_CP_LOSS_FOR_ACPL = 150
 
-    if len(white_cp_losses) > 0:
-        # Cap each loss at threshold, then take mean
-        capped_losses = [min(loss, MAX_CP_LOSS_FOR_ACPL) for loss in white_cp_losses]
-        white_acpl = sum(capped_losses) / len(capped_losses)
+    if white_cp_losses:
+        capped = [min(loss, MAX_CP_LOSS_FOR_ACPL) for loss in white_cp_losses]
+        white_acpl = sum(capped) / len(capped)
     else:
         white_acpl = 0
 
-    if len(black_cp_losses) > 0:
-        capped_losses = [min(loss, MAX_CP_LOSS_FOR_ACPL) for loss in black_cp_losses]
-        black_acpl = sum(capped_losses) / len(capped_losses)
+    if black_cp_losses:
+        capped = [min(loss, MAX_CP_LOSS_FOR_ACPL) for loss in black_cp_losses]
+        black_acpl = sum(capped) / len(capped)
     else:
         black_acpl = 0
 
     return {
         'whiteACPL': round(white_acpl, 1),
         'blackACPL': round(black_acpl, 1),
-        'whiteAccuracy': round(white_accuracy, 1),
-        'blackAccuracy': round(black_accuracy, 1),
+        'whiteAccuracy': white_accuracy,
+        'blackAccuracy': black_accuracy,
         'whiteMoveQuality': white_quality,
         'blackMoveQuality': black_quality,
         'whiteEngineMoves': white_engine_moves,

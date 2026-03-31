@@ -4,7 +4,7 @@
  * Tracks the player with the most diagonal moves (bishops and queens moving diagonally).
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate most diagonal moves
@@ -47,7 +47,7 @@ function calculateAntiOrthogonal(games) {
       mostDiagonal = {
         moves: diagonalMovesByColor.white,
         gameIndex: idx,
-        gameId: game.gameId || null,
+        gameId: getGameId(game),
         color: 'white',
         ...players
       };
@@ -57,7 +57,7 @@ function calculateAntiOrthogonal(games) {
       mostDiagonal = {
         moves: diagonalMovesByColor.black,
         gameIndex: idx,
-        gameId: game.gameId || null,
+        gameId: getGameId(game),
         color: 'black',
         ...players
       };

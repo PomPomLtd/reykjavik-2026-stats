@@ -262,7 +262,7 @@ function AwardCard({ gameId, className, children }: { gameId?: string | null, cl
 
   return (
     <a
-      href={`https://lichess.org/${gameId}`}
+      href={gameId?.startsWith('http') ? gameId : `https://lichess.org/${gameId}`}
       target="_blank"
       rel="noopener noreferrer"
       className={cardClasses}

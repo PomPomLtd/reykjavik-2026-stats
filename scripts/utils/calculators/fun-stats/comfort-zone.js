@@ -4,7 +4,7 @@
  * Tracks the player who used one piece type the most (as % of their non-pawn moves).
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate most-used piece type percentage (excluding pawns)
@@ -46,7 +46,7 @@ function calculateComfortZone(games) {
           moves: whiteMostUsed.count,
           totalNonPawnMoves: movesByPieceType.white.total,
           gameIndex: idx,
-          gameId: game.gameId || null,
+          gameId: getGameId(game),
           color: 'white',
           ...players
         };
@@ -68,7 +68,7 @@ function calculateComfortZone(games) {
           moves: blackMostUsed.count,
           totalNonPawnMoves: movesByPieceType.black.total,
           gameIndex: idx,
-          gameId: game.gameId || null,
+          gameId: getGameId(game),
           color: 'black',
           ...players
         };

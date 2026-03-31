@@ -4,7 +4,7 @@
  * Tracks the game with the most captures made by pawns.
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate most pawn captures
@@ -35,7 +35,7 @@ function calculatePawnCaptures(games) {
       mostPawnCaptures = {
         captures: pawnCapturesByColor.white,
         gameIndex: idx,
-        gameId: game.gameId || null,
+        gameId: getGameId(game),
         color: 'white',
         ...players
       };
@@ -45,7 +45,7 @@ function calculatePawnCaptures(games) {
       mostPawnCaptures = {
         captures: pawnCapturesByColor.black,
         gameIndex: idx,
-        gameId: game.gameId || null,
+        gameId: getGameId(game),
         color: 'black',
         ...players
       };

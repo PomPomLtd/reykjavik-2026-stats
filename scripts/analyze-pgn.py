@@ -45,17 +45,28 @@ import chess
 import chess.pgn
 from stockfish import Stockfish
 
+import math
+import statistics
+
 def cp_to_win_percentage(cp):
     """
     Convert centipawn evaluation to win percentage.
-    Based on Lichess formula: https://lichess.org/page/accuracy
+    Lichess formula: https://lichess.org/page/accuracy
+    Win% = 50 + 50 * (2 / (1 + exp(-0.00368208 * cp)) - 1)
     """
-    return 50 + 50 * (2 / (1 + pow(10, -abs(cp) / 400)) - 1) * (-1 if cp < 0 else 1)
+    return 50 + 50 * (2 / (1 + math.exp(-0.00368208 * cp)) - 1)
+
+def move_accuracy(win_loss):
+    """
+    Calculate per-move accuracy from win percentage loss.
+    Lichess formula: 103.1668 * exp(-0.04354 * win_loss) - 3.1669
+    """
+    acc = 103.1668 * math.exp(-0.04354 * win_loss) - 3.1669
+    return max(0, min(100, acc))
 
 def classify_move_by_win_percentage(win_before, win_after, is_white):
     """
     Classify move quality based on win percentage change.
-    Based on Lichess algorithm: https://github.com/lichess-org/lila/blob/master/modules/analyse/src/main/AccuracyPercent.scala
 
     Returns: (quality, win_loss) where quality is 'excellent', 'good', 'inaccuracies', 'mistakes', or 'blunders'
     """
@@ -63,13 +74,12 @@ def classify_move_by_win_percentage(win_before, win_after, is_white):
     if is_white:
         win_loss = win_before - win_after
     else:
-        # For black, we need to flip the percentages
         win_loss = (100 - win_before) - (100 - win_after)
 
     # Normalize to 0-100 range
     win_loss = max(0, win_loss)
 
-    # Lichess classification thresholds (based on win% loss)
+    # Classification thresholds (based on win% loss)
     if win_loss < 2:
         return 'excellent', win_loss
     elif win_loss < 5:
@@ -79,27 +89,30 @@ def classify_move_by_win_percentage(win_before, win_after, is_white):
     elif win_loss < 20:
         return 'mistakes', win_loss
     else:
-        # Only count as blunder if the position actually swings significantly
-        # Don't count blunders when already completely winning/losing
-        if win_before > 10 and win_before < 90:  # Position wasn't already decided
-            return 'blunders', win_loss
-        else:
-            return 'mistakes', win_loss
+        return 'blunders', win_loss
 
 def calculate_accuracy_from_win_percentage(win_losses):
     """
-    Calculate accuracy percentage from list of win percentage losses.
-    Based on Lichess formula.
+    Calculate game accuracy from list of win percentage losses.
+    Uses harmonic-mean approach matching Lichess:
+    1. Compute per-move accuracy for each move
+    2. Combine via harmonic mean (penalizes bad moves more)
     """
     if not win_losses:
         return 100
 
-    # Lichess formula: 103.1668 * e^(-0.04354 * average_win_loss) - 3.1669
-    import math
-    avg_loss = sum(win_losses) / len(win_losses)
-    accuracy = 103.1668 * math.exp(-0.04354 * avg_loss) - 3.1669
+    # Per-move accuracies
+    accuracies = [move_accuracy(wl) for wl in win_losses]
 
-    return max(0, min(100, accuracy))
+    # Filter out zero accuracies for harmonic mean (avoid division by zero)
+    nonzero = [a for a in accuracies if a > 0]
+    if not nonzero:
+        return 0
+
+    # Harmonic mean penalizes bad moves more than arithmetic mean
+    hm = statistics.harmonic_mean(nonzero)
+
+    return max(0, min(100, round(hm, 1)))
 
 def calculate_blunder_severity(eval_before, eval_after, eval_before_type, eval_after_type, win_loss):
     """

@@ -4,7 +4,7 @@
  * Tracks who castled the latest in the round (highest move number).
  */
 
-const { getPlayerNames } = require('../helpers');
+const { getPlayerNames, getGameId } = require('../helpers');
 
 /**
  * Calculate slowest castling (latest castling move)
@@ -25,7 +25,7 @@ function calculateSlowestCastling(games) {
           slowestCastling = {
             moves: moveNumber,
             gameIndex: idx,
-            gameId: game.gameId || null,
+            gameId: getGameId(game),
             color: move.color === 'w' ? 'white' : 'black',
             ...players
           };

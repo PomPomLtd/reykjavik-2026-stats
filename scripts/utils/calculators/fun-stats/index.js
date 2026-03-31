@@ -25,8 +25,7 @@ const { calculateSlowestCastling } = require('./slowest-castling');
 const { calculatePawnCaptures } = require('./pawn-captures');
 const { calculateAntiOrthogonal } = require('./anti-orthogonal');
 const { calculateComfortZone } = require('./comfort-zone');
-const { filterGamesWithMoves } = require('../helpers');
-const { analyzeAllGames } = require('../../time-analyzer');
+const { filterGamesWithMoves, getGameId } = require('../helpers');
 
 /**
  * Calculate all fun statistics
@@ -37,8 +36,11 @@ const { analyzeAllGames } = require('../../time-analyzer');
 function calculateFunStats(games, tacticalPatterns = null) {
   const gamesWithMoves = filterGamesWithMoves(games);
 
-  // Calculate time-based awards (requires clock annotations from Lichess PGN)
-  const timeAwards = analyzeAllGames(gamesWithMoves, 45); // 45+45 time control
+  // Build gameId lookup by gameIndex for enriching tacticalPatterns data
+  const gameIdByIndex = {};
+  gamesWithMoves.forEach((game, idx) => {
+    gameIdByIndex[idx] = getGameId(game);
+  });
 
   const queenTrades = calculateQueenTrades(gamesWithMoves);
   const pieceLoyalty = calculatePieceLoyalty(gamesWithMoves);
@@ -67,58 +69,57 @@ function calculateFunStats(games, tacticalPatterns = null) {
     comfortZone: calculateComfortZone(gamesWithMoves)
   };
 
-  // Add chicken awards if available
+  // Add chicken awards from tactical patterns (Python analysis)
   if (tacticalPatterns && tacticalPatterns.summary) {
     const summary = tacticalPatterns.summary;
 
+    // Helper to enrich tactical pattern data with gameId from the lookup
+    const enrichWithGameId = (data) => {
+      if (!data) return null;
+      return { ...data, gameId: data.gameId || gameIdByIndex[data.gameIndex] || null };
+    };
+
     // Homebody: Least pieces in enemy territory
     if (summary.homebody) {
-      const h = summary.homebody;
+      const h = enrichWithGameId(summary.homebody);
       const playerName = h.player === 'white' ? h.white : h.black;
       funStats.homebody = {
-        white: h.white,
-        black: h.black,
-        player: h.player,
+        ...h,
         playerName: playerName,
-        piecesInEnemy: h.piecesInEnemy,
         description: `${playerName} only crossed ${h.piecesInEnemy} piece(s) into opponent's half of the board`
       };
     }
 
     // Late Bloomer: Waited longest to invade enemy territory
     if (summary.lateBloomer) {
-      const lb = summary.lateBloomer;
+      const lb = enrichWithGameId(summary.lateBloomer);
       const playerName = lb.player === 'white' ? lb.white : lb.black;
       funStats.lateBloomer = {
-        white: lb.white,
-        black: lb.black,
-        player: lb.player,
+        ...lb,
         playerName: playerName,
-        moveNumber: lb.moveNumber,
         description: `${playerName} waited until move ${Math.floor((lb.moveNumber + 1) / 2)} to cross into opponent's half`
       };
     }
 
     // Quick Draw: Invaded earliest
     if (summary.quickDraw) {
-      const qd = summary.quickDraw;
+      const qd = enrichWithGameId(summary.quickDraw);
       const playerName = qd.player === 'white' ? qd.white : qd.black;
       funStats.quickDraw = {
-        white: qd.white,
-        black: qd.black,
-        player: qd.player,
+        ...qd,
         playerName: playerName,
-        moveNumber: qd.moveNumber,
         description: `${playerName} crossed into opponent's half on move ${Math.floor((qd.moveNumber + 1) / 2)}`
       };
     }
 
     // Crosshairs: Square under most simultaneous attack in a single position
     if (summary.mostAttackedSquareGame && summary.mostAttackedSquareGame.mostAttackedSquare) {
-      const attacked = summary.mostAttackedSquareGame.mostAttackedSquare;
+      const game = enrichWithGameId(summary.mostAttackedSquareGame);
+      const attacked = game.mostAttackedSquare;
       funStats.crosshairs = {
-        white: summary.mostAttackedSquareGame.white,
-        black: summary.mostAttackedSquareGame.black,
+        white: game.white,
+        black: game.black,
+        gameId: game.gameId,
         square: attacked.square,
         attackers: attacked.attackers,
         whiteAttackers: attacked.whiteAttackers,
@@ -131,47 +132,13 @@ function calculateFunStats(games, tacticalPatterns = null) {
 
     // Longest Tension: Pieces that could capture each other but don't
     if (summary.longestTension) {
-      const lt = summary.longestTension;
+      const lt = enrichWithGameId(summary.longestTension);
       funStats.longestTension = {
-        white: lt.white,
-        black: lt.black,
-        moves: lt.moves,
-        squares: lt.squares,
-        startMove: lt.startMove,
-        endMove: lt.endMove,
+        ...lt,
         description: `${lt.squares} pieces faced off for ${lt.moves} moves without capturing`
       };
     }
 
-  }
-
-  // Add time-based awards if clock data is available
-  if (timeAwards) {
-    if (timeAwards.sniper) {
-      funStats.sniper = timeAwards.sniper;
-    }
-    if (timeAwards.openingBlitzer) {
-      funStats.openingBlitzer = timeAwards.openingBlitzer;
-    }
-    if (timeAwards.sadTimes) {
-      funStats.sadTimes = timeAwards.sadTimes;
-    }
-    // Include other time awards as well (already implemented)
-    if (timeAwards.mostPremoves) {
-      funStats.mostPremoves = timeAwards.mostPremoves;
-    }
-    if (timeAwards.longestThink) {
-      funStats.longestThink = timeAwards.longestThink;
-    }
-    if (timeAwards.zeitnotAddict) {
-      funStats.zeitnotAddict = timeAwards.zeitnotAddict;
-    }
-    if (timeAwards.timeScrambleSurvivor) {
-      funStats.timeScrambleSurvivor = timeAwards.timeScrambleSurvivor;
-    }
-    if (timeAwards.bulletSpeed) {
-      funStats.bulletSpeed = timeAwards.bulletSpeed;
-    }
   }
 
   return funStats;

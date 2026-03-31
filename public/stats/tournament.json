@@ -1,7 +1,7 @@
 {
   "roundNumber": 1,
   "seasonNumber": 2026,
-  "generatedAt": "2026-03-31T00:08:27.498Z",
+  "generatedAt": "2026-03-31T14:53:57.055Z",
   "overview": {
     "totalGames": 53,
     "totalMoves": 4138,
@@ -367,6 +367,7 @@
         "white": "Neo Matrix",
         "black": "Walo",
         "round": "1",
+        "gameId": "https://lichess.org/study/lGf88qOA/jY93h1XG",
         "count": 1
       }
     ],
@@ -378,26 +379,26 @@
     "bloodiestGame": {
       "captures": 30,
       "gameIndex": 6,
-      "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0",
       "white": "jaque",
       "black": "Gaston",
-      "round": "1"
+      "round": "1",
+      "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0"
     },
     "quietestGame": {
       "captures": 4,
       "gameIndex": 38,
-      "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI",
       "white": "Nyc lawyer",
       "black": "Sam",
-      "round": "5"
+      "round": "5",
+      "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI"
     },
     "longestNonCaptureStreak": {
       "moves": 170,
       "gameIndex": 4,
-      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
       "white": "Janosch",
       "black": "Opp",
-      "round": "1"
+      "round": "1",
+      "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe"
     },
     "totalUnderpromotions": 1,
     "underpromotions": [
@@ -409,7 +410,8 @@
         "san": "a1=R+",
         "white": "Zawadzki",
         "black": "Sam",
-        "round": "2"
+        "round": "2",
+        "gameId": "https://lichess.org/study/lGf88qOA/uIB3XftP"
       }
     ]
   },
@@ -747,30 +749,37 @@
     "homebody": {
       "white": "Renato Frederik Roscher",
       "black": "Fynn von Kistowski",
+      "gameId": "https://lichess.org/study/lGf88qOA/o613iSQK",
       "player": "white",
-      "playerName": "Renato Frederik Roscher",
       "piecesInEnemy": 1,
+      "gameIndex": 5,
+      "playerName": "Renato Frederik Roscher",
       "description": "Renato Frederik Roscher only crossed 1 piece(s) into opponent's half of the board"
     },
     "lateBloomer": {
       "white": "Youngbrain",
       "black": "random italian guy",
+      "gameId": "https://lichess.org/study/lGf88qOA/0JbmiFMl",
       "player": "black",
-      "playerName": "random italian guy",
       "moveNumber": 60,
+      "gameIndex": 36,
+      "playerName": "random italian guy",
       "description": "random italian guy waited until move 30 to cross into opponent's half"
     },
     "quickDraw": {
       "white": "Jaque",
       "black": "Andresson",
+      "gameId": "https://lichess.org/study/lGf88qOA/oC2nDLai",
       "player": "white",
-      "playerName": "Jaque",
       "moveNumber": 3,
+      "gameIndex": 17,
+      "playerName": "Jaque",
       "description": "Jaque crossed into opponent's half on move 2"
     },
     "crosshairs": {
       "white": "Libanese GM Michael Ferzli",
       "black": "Camill",
+      "gameId": "https://lichess.org/study/lGf88qOA/21PhrWcY",
       "square": "d5",
       "attackers": 8,
       "whiteAttackers": 3,
@@ -782,41 +791,13 @@
     "longestTension": {
       "white": "Jonsson, Thormar",
       "black": "Trueeb, Camill",
+      "gameId": "https://lichess.org/study/lGf88qOA/8DEd77zG",
       "moves": 27,
       "squares": "e6-f5",
       "startMove": 79,
       "endMove": 106,
+      "gameIndex": 7,
       "description": "e6-f5 pieces faced off for 27 moves without capturing"
-    },
-    "mostPremoves": {
-      "white": "Trueeb, Camill",
-      "black": "Karlinder, Lovis Neo",
-      "gameIndex": 14,
-      "gameId": "gzXn0Pk8",
-      "player": "Karlinder, Lovis Neo",
-      "color": "black",
-      "count": 1
-    },
-    "longestThink": {
-      "white": "Trueeb, Camill",
-      "black": "Karlinder, Lovis Neo",
-      "gameIndex": 14,
-      "gameId": "gzXn0Pk8",
-      "player": "Karlinder, Lovis Neo",
-      "color": "black",
-      "timeSpent": 1199,
-      "moveNumber": 20,
-      "move": "Bg7"
-    },
-    "bulletSpeed": {
-      "white": "Trueeb, Camill",
-      "black": "Karlinder, Lovis Neo",
-      "gameIndex": 14,
-      "gameId": "gzXn0Pk8",
-      "player": "Trueeb, Camill",
-      "color": "white",
-      "avgTime": 214.83333333333334,
-      "moveCount": 30
     }
   },
   "tacticalPatterns": {
@@ -824,6 +805,7 @@
       {
         "white": "Sam",
         "black": "Dutch Dude",
+        "gameId": "https://lichess.org/study/lGf88qOA/X5VJMcKS",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 3,
@@ -849,6 +831,7 @@
       {
         "white": "Neo Matrix",
         "black": "Walo",
+        "gameId": "https://lichess.org/study/lGf88qOA/jY93h1XG",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -874,6 +857,7 @@
       {
         "white": "Nakul",
         "black": "Katrin Ost",
+        "gameId": "https://lichess.org/study/lGf88qOA/0oLFC8My",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -899,6 +883,7 @@
       {
         "white": "Alex",
         "black": "Opp",
+        "gameId": "https://lichess.org/study/lGf88qOA/fjCJWRiL",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 4,
@@ -924,6 +909,7 @@
       {
         "white": "Janosch",
         "black": "Opp",
+        "gameId": "https://lichess.org/study/lGf88qOA/jUMVU0Xe",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -949,6 +935,7 @@
       {
         "white": "Renato Frederik Roscher",
         "black": "Fynn von Kistowski",
+        "gameId": "https://lichess.org/study/lGf88qOA/o613iSQK",
         "enemyTerritory": {
           "whitePiecesInEnemy": 1,
           "blackPiecesInEnemy": 5,
@@ -974,6 +961,7 @@
       {
         "white": "jaque",
         "black": "Gaston",
+        "gameId": "https://lichess.org/study/lGf88qOA/GNBFwfx0",
         "enemyTerritory": {
           "whitePiecesInEnemy": 6,
           "blackPiecesInEnemy": 5,
@@ -999,6 +987,7 @@
       {
         "white": "Jonsson, Thormar",
         "black": "Trueeb, Camill",
+        "gameId": "https://lichess.org/study/lGf88qOA/8DEd77zG",
         "enemyTerritory": {
           "whitePiecesInEnemy": 6,
           "blackPiecesInEnemy": 4,
@@ -1024,6 +1013,7 @@
       {
         "white": "Opp",
         "black": "Alex",
+        "gameId": "https://lichess.org/study/lGf88qOA/gcF9I7ly",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 4,
@@ -1049,6 +1039,7 @@
       {
         "white": "Gaston Filippo",
         "black": "Ingi",
+        "gameId": "https://lichess.org/study/lGf88qOA/UBbDQw8K",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 4,
@@ -1074,6 +1065,7 @@
       {
         "white": "Zawadzki",
         "black": "Sam",
+        "gameId": "https://lichess.org/study/lGf88qOA/uIB3XftP",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -1099,6 +1091,7 @@
       {
         "white": "max walo",
         "black": "toma matsugane",
+        "gameId": "https://lichess.org/study/lGf88qOA/vLvqiTlH",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 4,
@@ -1124,6 +1117,7 @@
       {
         "white": "Magnusdottir",
         "black": "Jaque",
+        "gameId": "https://lichess.org/study/lGf88qOA/1uCPwQfy",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 5,
@@ -1149,6 +1143,7 @@
       {
         "white": "Opp",
         "black": "Janosch",
+        "gameId": "https://lichess.org/study/lGf88qOA/mb3enDFb",
         "enemyTerritory": {
           "whitePiecesInEnemy": 2,
           "blackPiecesInEnemy": 3,
@@ -1174,6 +1169,7 @@
       {
         "white": "Trueeb, Camill",
         "black": "Karlinder, Lovis Neo",
+        "gameId": "https://lichess.org/study/lGf88qOA/LQAXlCSY",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 4,
@@ -1199,6 +1195,7 @@
       {
         "white": "USA",
         "black": "GAST",
+        "gameId": "https://lichess.org/study/lGf88qOA/5qxVKESP",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -1224,6 +1221,7 @@
       {
         "white": "Sam",
         "black": "US Sam",
+        "gameId": "https://lichess.org/study/lGf88qOA/99jSytCp",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 4,
@@ -1249,6 +1247,7 @@
       {
         "white": "Jaque",
         "black": "Andresson",
+        "gameId": "https://lichess.org/study/lGf88qOA/oC2nDLai",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 2,
@@ -1274,6 +1273,7 @@
       {
         "white": "dara murray",
         "black": "walo",
+        "gameId": "https://lichess.org/study/lGf88qOA/4ZpoopoI",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 3,
@@ -1299,6 +1299,7 @@
       {
         "white": "Janosch",
         "black": "pleasent israelian girl",
+        "gameId": "https://lichess.org/study/lGf88qOA/KHysQQUe",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 5,
@@ -1324,6 +1325,7 @@
       {
         "white": "Mitchell Andersson",
         "black": "Fynn",
+        "gameId": "https://lichess.org/study/lGf88qOA/nYGAvtWw",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 3,
@@ -1349,6 +1351,7 @@
       {
         "white": "Alex",
         "black": "Opp",
+        "gameId": "https://lichess.org/study/lGf88qOA/3CXTUWaS",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 5,
@@ -1374,6 +1377,7 @@
       {
         "white": "Libanese GM Michael Ferzli",
         "black": "Camill",
+        "gameId": "https://lichess.org/study/lGf88qOA/21PhrWcY",
         "enemyTerritory": {
           "whitePiecesInEnemy": 6,
           "blackPiecesInEnemy": 5,
@@ -1399,6 +1403,7 @@
       {
         "white": "walo",
         "black": "mateusz",
+        "gameId": "https://lichess.org/study/lGf88qOA/LJEGqFHJ",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -1424,6 +1429,7 @@
       {
         "white": "Angry german",
         "black": "Sam",
+        "gameId": "https://lichess.org/study/lGf88qOA/9ORBBkAH",
         "enemyTerritory": {
           "whitePiecesInEnemy": 2,
           "blackPiecesInEnemy": 3,
@@ -1449,6 +1455,7 @@
       {
         "white": "Camillaman",
         "black": "Facial Expression",
+        "gameId": "https://lichess.org/study/lGf88qOA/FBoTrhmC",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 5,
@@ -1474,6 +1481,7 @@
       {
         "white": "Gast",
         "black": "Herr Dr.",
+        "gameId": "https://lichess.org/study/lGf88qOA/WjWl1Azs",
         "enemyTerritory": {
           "whitePiecesInEnemy": 6,
           "blackPiecesInEnemy": 4,
@@ -1499,6 +1507,7 @@
       {
         "white": "IM",
         "black": "Shardul",
+        "gameId": "https://lichess.org/study/lGf88qOA/OVvcz0ZJ",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -1524,6 +1533,7 @@
       {
         "white": "Jobava hurensohn",
         "black": "Alex",
+        "gameId": "https://lichess.org/study/lGf88qOA/G1K62V1Y",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 4,
@@ -1549,6 +1559,7 @@
       {
         "white": "Youngbrain",
         "black": "talking belgium guy",
+        "gameId": "https://lichess.org/study/lGf88qOA/73G5DxsH",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 5,
@@ -1574,6 +1585,7 @@
       {
         "white": "?",
         "black": "?",
+        "gameId": "https://lichess.org/study/lGf88qOA/VLoSDG6t",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 4,
@@ -1599,6 +1611,7 @@
       {
         "white": "Fynn",
         "black": "Sangra Sankrithi",
+        "gameId": "https://lichess.org/study/lGf88qOA/hWMXeM2o",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 4,
@@ -1624,6 +1637,7 @@
       {
         "white": "Shardul",
         "black": "Nico Beyer",
+        "gameId": "https://lichess.org/study/lGf88qOA/OYVGezbv",
         "enemyTerritory": {
           "whitePiecesInEnemy": 2,
           "blackPiecesInEnemy": 4,
@@ -1649,6 +1663,7 @@
       {
         "white": "?",
         "black": "?",
+        "gameId": "https://lichess.org/study/lGf88qOA/d9M4d74H",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -1674,6 +1689,7 @@
       {
         "white": "walo",
         "black": "sam jukes",
+        "gameId": "https://lichess.org/study/lGf88qOA/hKhisiyp",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -1699,6 +1715,7 @@
       {
         "white": "Canadian Mister",
         "black": "Camil",
+        "gameId": "https://lichess.org/study/lGf88qOA/bFWW6InE",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 3,
@@ -1724,6 +1741,7 @@
       {
         "white": "Youngbrain",
         "black": "random italian guy",
+        "gameId": "https://lichess.org/study/lGf88qOA/0JbmiFMl",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 4,
@@ -1749,6 +1767,7 @@
       {
         "white": "Pepsi Cola",
         "black": "Gaston",
+        "gameId": "https://lichess.org/study/lGf88qOA/P5W1EeyV",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 2,
@@ -1774,6 +1793,7 @@
       {
         "white": "Nyc lawyer",
         "black": "Sam",
+        "gameId": "https://lichess.org/study/lGf88qOA/LUbXVSkI",
         "enemyTerritory": {
           "whitePiecesInEnemy": 2,
           "blackPiecesInEnemy": 1,
@@ -1799,6 +1819,7 @@
       {
         "white": "Sridar",
         "black": "Jaque",
+        "gameId": "https://lichess.org/study/lGf88qOA/LIeyCPLm",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -1824,6 +1845,7 @@
       {
         "white": "Carlo Janssens",
         "black": "Fynn",
+        "gameId": "https://lichess.org/study/lGf88qOA/jkEmabqd",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -1849,6 +1871,7 @@
       {
         "white": "Opp",
         "black": "Janosch",
+        "gameId": "https://lichess.org/study/lGf88qOA/YtkpLs5s",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 4,
@@ -1874,6 +1897,7 @@
       {
         "white": "Alex",
         "black": "2nd FM",
+        "gameId": "https://lichess.org/study/lGf88qOA/9q00d5jD",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -1899,6 +1923,7 @@
       {
         "white": "dutch girl",
         "black": "walo",
+        "gameId": "https://lichess.org/study/lGf88qOA/sSaIq4CS",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 2,
@@ -1924,6 +1949,7 @@
       {
         "white": "Sam",
         "black": "QGA Rage man",
+        "gameId": "https://lichess.org/study/lGf88qOA/lvu8PuRQ",
         "enemyTerritory": {
           "whitePiecesInEnemy": 2,
           "blackPiecesInEnemy": 3,
@@ -1949,6 +1975,7 @@
       {
         "white": "Gaston",
         "black": "Pawn Pushing Pimp",
+        "gameId": "https://lichess.org/study/lGf88qOA/x82Bj4P1",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 5,
@@ -1974,6 +2001,7 @@
       {
         "white": "Camill Trüeb",
         "black": "Bill Howard Putnam",
+        "gameId": "https://lichess.org/study/lGf88qOA/n9gOAf7H",
         "enemyTerritory": {
           "whitePiecesInEnemy": 2,
           "blackPiecesInEnemy": 3,
@@ -1999,6 +2027,7 @@
       {
         "white": "Fynn",
         "black": "Sam Van Zeebroeck",
+        "gameId": "https://lichess.org/study/lGf88qOA/iJTq7h7K",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 3,
@@ -2024,6 +2053,7 @@
       {
         "white": "Sigurdur Freyr Jonatansson",
         "black": "Camill Trüeb",
+        "gameId": "https://lichess.org/study/lGf88qOA/wY3hqJei",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 2,
@@ -2049,6 +2079,7 @@
       {
         "white": "Lil Finegold",
         "black": "Gast",
+        "gameId": "https://lichess.org/study/lGf88qOA/IvU1aXLO",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 5,
@@ -2074,6 +2105,7 @@
       {
         "white": "Irish youngblood",
         "black": "Sam",
+        "gameId": "https://lichess.org/study/lGf88qOA/mW7JUafU",
         "enemyTerritory": {
           "whitePiecesInEnemy": 3,
           "blackPiecesInEnemy": 3,
@@ -2090,7 +2122,7 @@
         },
         "longestTension": {
           "moves": 9,
-          "squares": "b6-c4",
+          "squares": "a4-b6",
           "startMove": 40,
           "endMove": 49
         },
@@ -2099,6 +2131,7 @@
       {
         "white": "Lucia",
         "black": "Fynn",
+        "gameId": "https://lichess.org/study/lGf88qOA/JQVqqhDv",
         "enemyTerritory": {
           "whitePiecesInEnemy": 4,
           "blackPiecesInEnemy": 3,
@@ -2124,6 +2157,7 @@
       {
         "white": "Island WCM",
         "black": "Walo",
+        "gameId": "https://lichess.org/study/lGf88qOA/1Y4QGR1h",
         "enemyTerritory": {
           "whitePiecesInEnemy": 5,
           "blackPiecesInEnemy": 5,
@@ -2152,6 +2186,7 @@
       "homebody": {
         "white": "Renato Frederik Roscher",
         "black": "Fynn von Kistowski",
+        "gameId": "https://lichess.org/study/lGf88qOA/o613iSQK",
         "player": "white",
         "piecesInEnemy": 1,
         "gameIndex": 5
@@ -2160,6 +2195,7 @@
       "mostAttackedSquareGame": {
         "white": "Libanese GM Michael Ferzli",
         "black": "Camill",
+        "gameId": "https://lichess.org/study/lGf88qOA/21PhrWcY",
         "enemyTerritory": {
           "whitePiecesInEnemy": 6,
           "blackPiecesInEnemy": 5,
@@ -2185,6 +2221,7 @@
       "lateBloomer": {
         "white": "Youngbrain",
         "black": "random italian guy",
+        "gameId": "https://lichess.org/study/lGf88qOA/0JbmiFMl",
         "player": "black",
         "moveNumber": 60,
         "gameIndex": 36
@@ -2192,6 +2229,7 @@
       "quickDraw": {
         "white": "Jaque",
         "black": "Andresson",
+        "gameId": "https://lichess.org/study/lGf88qOA/oC2nDLai",
         "player": "white",
         "moveNumber": 3,
         "gameIndex": 17
@@ -2199,6 +2237,7 @@
       "longestTension": {
         "white": "Jonsson, Thormar",
         "black": "Trueeb, Camill",
+        "gameId": "https://lichess.org/study/lGf88qOA/8DEd77zG",
         "moves": 27,
         "squares": "e6-f5",
         "startMove": 79,

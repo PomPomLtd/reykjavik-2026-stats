@@ -6,7 +6,7 @@
  * en passant, underpromotions, and capture streaks.
  */
 
-const { getPlayerNames, filterGamesWithMoves, getGameId } = require('./helpers');
+const { filterGamesWithMoves, getGameInfo } = require('./helpers');
 
 /**
  * Calculate tactical statistics
@@ -31,7 +31,7 @@ function calculateTactics(games) {
 
   gamesWithMoves.forEach((game, idx) => {
     const sm = game.specialMoves;
-    const players = getPlayerNames(game);
+    const info = getGameInfo(game);
 
     totalCaptures += sm.totalCaptures;
     totalPromotions += sm.totalPromotions;
@@ -39,7 +39,7 @@ function calculateTactics(games) {
     totalCastlingQueenside += sm.totalCastlingQueenside;
 
     if (sm.totalEnPassant > 0) {
-      enPassantGames.push({ ...players, count: sm.totalEnPassant });
+      enPassantGames.push({ ...info, count: sm.totalEnPassant });
     }
 
     // Track underpromotions
@@ -52,19 +52,17 @@ function calculateTactics(games) {
           promotedTo: move.promotion,
           color: move.color,
           san: move.san,
-          ...players
+          ...info
         });
       }
     });
 
-    const gameId = getGameId(game);
-
     if (sm.totalCaptures > bloodiestGame.captures) {
-      bloodiestGame = { captures: sm.totalCaptures, gameIndex: idx, gameId, ...players };
+      bloodiestGame = { captures: sm.totalCaptures, gameIndex: idx, ...info };
     }
 
     if (sm.totalCaptures < quietestGame.captures) {
-      quietestGame = { captures: sm.totalCaptures, gameIndex: idx, gameId, ...players };
+      quietestGame = { captures: sm.totalCaptures, gameIndex: idx, ...info };
     }
 
     // Find longest non-capture streak
@@ -80,7 +78,7 @@ function calculateTactics(games) {
     });
 
     if (maxStreak > longestNonCaptureStreak.moves) {
-      longestNonCaptureStreak = { moves: maxStreak, gameIndex: idx, gameId, ...players };
+      longestNonCaptureStreak = { moves: maxStreak, gameIndex: idx, ...info };
     }
   });
 

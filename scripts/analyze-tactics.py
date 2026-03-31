@@ -55,9 +55,14 @@ class TacticalAnalyzer:
             'endMove': 0
         }
 
-        # Get player names
+        # Get player names and game ID
         self.white = game.headers.get("White", "Unknown")
         self.black = game.headers.get("Black", "Unknown")
+        self.game_id = (
+            game.headers.get("ChapterURL")
+            or game.headers.get("GameId")
+            or None
+        )
 
     def analyze(self) -> Dict[str, Any]:
         """Run all analysis and return results."""
@@ -189,6 +194,7 @@ class TacticalAnalyzer:
         return {
             'white': self.white,
             'black': self.black,
+            'gameId': self.game_id,
             'enemyTerritory': {
                 'whitePiecesInEnemy': len(self.white_pieces_in_enemy),
                 'blackPiecesInEnemy': len(self.black_pieces_in_enemy),
@@ -275,6 +281,7 @@ def analyze_all_games(pgn_data: str) -> Dict[str, Any]:
         summary['lateBloomer'] = {
             'white': latest_game['white'],
             'black': latest_game['black'],
+            'gameId': latest_game.get('gameId'),
             'player': latest_player,
             'moveNumber': latest_invasion,
             'gameIndex': latest_game['gameIndex']
@@ -308,6 +315,7 @@ def analyze_all_games(pgn_data: str) -> Dict[str, Any]:
         summary['homebody'] = {
             'white': homebody_game['white'],
             'black': homebody_game['black'],
+            'gameId': homebody_game.get('gameId'),
             'player': homebody_player,
             'piecesInEnemy': min_invasion,
             'gameIndex': homebody_game['gameIndex']
@@ -336,6 +344,7 @@ def analyze_all_games(pgn_data: str) -> Dict[str, Any]:
         summary['quickDraw'] = {
             'white': earliest_game['white'],
             'black': earliest_game['black'],
+            'gameId': earliest_game.get('gameId'),
             'player': earliest_player,
             'moveNumber': earliest_invasion,
             'gameIndex': earliest_game['gameIndex']
@@ -355,6 +364,7 @@ def analyze_all_games(pgn_data: str) -> Dict[str, Any]:
         summary['longestTension'] = {
             'white': longest_tension_game['white'],
             'black': longest_tension_game['black'],
+            'gameId': longest_tension_game.get('gameId'),
             'moves': tension_data['moves'],
             'squares': tension_data['squares'],
             'startMove': tension_data['startMove'],

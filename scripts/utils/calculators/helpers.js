@@ -120,6 +120,19 @@ function getGameId(game) {
   return null;
 }
 
+/**
+ * Build common game info object used by all award/stat entries.
+ * Ensures every stat entry has consistent fields: white, black, round, gameId.
+ * @param {Object} game - Game object with headers
+ * @returns {Object} { white, black, round, gameId }
+ */
+function getGameInfo(game) {
+  return {
+    ...getPlayerNames(game),
+    gameId: getGameId(game)
+  };
+}
+
 module.exports = {
   filterGamesWithMoves,
   calculateDistance,
@@ -127,6 +140,7 @@ module.exports = {
   getPlayerName,
   getPlayerNames,
   getGameId,
+  getGameInfo,
   toFullMoves,
   PIECE_NAMES,
   PIECE_NAMES_LOWERCASE,
